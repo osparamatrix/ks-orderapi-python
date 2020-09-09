@@ -1,8 +1,8 @@
 # openapi-client
 No description provided
 
-- API version: 1.0.0
-- Package version: 1.0.0
+- API version: 1.0.1
+- Package version: 1.0.1
 - Build package: com.paramatrix.ks.codegen.PythonKsGenerator
 
 ## Requirements.
