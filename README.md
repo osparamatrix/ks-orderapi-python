@@ -51,7 +51,7 @@ client = ks_api.KSTradeApi(access_token = "", userid = "", \
                               consumer_key = "", app_id = "", ip = "127.0.0.1")
 
 # Get session for user
-client.session_login_user(password = "login@1")
+client.login(password = "login@1")
 
 #Generated session token
 client.generate_session2_fa(access_code = "1111")
