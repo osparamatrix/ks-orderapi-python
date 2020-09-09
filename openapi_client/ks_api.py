@@ -41,7 +41,7 @@ class KSTradeApi():
                 configuration.proxy_headers=make_headers(proxy_basic_auth=':'.join((proxy_user,proxy_pass)))
         return configuration
 
-    def session_login_user(self, password):
+    def login(self, password):
         user_credentials = UserCredentials(userid=self.userid, password=password)
         login_response_res = openapi_client.SessionApi(self.api_client).login_with_user_id(self.consumer_key, \
                 self.ip, self.app_id, UserCredentials=user_credentials)
@@ -107,19 +107,19 @@ class KSTradeApi():
                     validity=validity, triggerPrice=triggerPrice)
             place_order = openapi_client.SuperMultipleOrderApi(self.api_client).place_new_sm_order(self.consumer_key,\
                             self.session_token, order)
-        elif order_type == 'SORO':
+        elif order_type == 'SOR':
             order = NewSOROrder( instrumentToken=instrumentToken, tag=tag, transactionType=transactionType,\
                     variety=variety, quantity=quantity, price=price, validity="GFD")
             place_order = openapi_client.SmartOrderRoutingApi(self.api_client).place_new_sor_order(self.consumer_key,\
                             self.session_token, order)
-        elif order_type == 'MTFO':
+        elif order_type == 'MTF':
             order = NewMTFOrder(instrumentToken=instrumentToken, tag=tag, transactionType=transactionType,\
                 variety=variety, quantity=quantity, price=price, disclosedQuantity=disclosedQuantity, \
                 validity=validity, triggerPrice=triggerPrice)
             place_order = openapi_client.MarginTradingApi(self.api_client).place_new_mtf_order(self.consumer_key, \
                             self.session_token, order)
         else:
-            raise TypeError("Provided order type is invalid.")
+            raise TypeError("Provided order type is invalid, user either of O(order), NO(normal order), SMO(super multiple order), SORO(smart order routing) or MTF(Margin Trading Facility)")
 
         return place_order
 
@@ -146,14 +146,14 @@ class KSTradeApi():
         elif order_type == 'SMO':
             modified_order_res = openapi_client.SuperMultipleOrderApi(self.api_client).modify_sm_order(self.consumer_key,
                             self.session_token, modify_order)
-        elif order_type == 'SORO':
+        elif order_type == 'SOR':
             modified_order_res = openapi_client.SmartOrderRoutingApi(self.api_client).modify_sor_order(self.consumer_key,\
                             self.session_token, modify_order)
-        elif order_type == 'MTFO':
+        elif order_type == 'MTF':
             modified_order_res = openapi_client.MarginTradingApi(self.api_client).modify_mtf_order(self.consumer_key, \
                             self.session_token, modify_order)
         else:
-            raise TypeError("Provided order type is invalid.")
+            raise TypeError("Provided order type is invalid, user either of O(order), NO(normal order), SMO(super multiple order), SORO(smart order routing) or MTF(Margin Trading Facility)")
 
         return modified_order_res
 
@@ -178,14 +178,14 @@ class KSTradeApi():
         elif type=='SMO':
             order = openapi_client.SuperMultipleOrderApi(self.api_client).cancel_sm_order(self.consumer_key,
                             self.session_token, order_id)
-        elif type=='SORO':
+        elif type=='SOR':
             order = openapi_client.SmartOrderRoutingApi(self.api_client).cancel_sor_order(self.consumer_key,\
                             self.session_token, order)
-        elif type=='MTFO':
+        elif type=='MTF':
             order = openapi_client.MarginTradingApi(self.api_client).cancel_mtf_order(self.consumer_key, \
                             self.session_token, order)
         else:
-            raise TypeError("Provided order type is invalid.")
+            raise TypeError("Provided order type is invalid, user either of O(order), NO(normal order), SMO(super multiple order), SORO(smart order routing) or MTF(Margin Trading Facility)")
 
         return order.orderId
 
@@ -199,7 +199,7 @@ class KSTradeApi():
         elif positionType == 'STOCKS':
             positions_res=openapi_client.PositionsApi(self.api_client).positions_stocks(self.consumer_key,self.session_token)
         else:
-            raise TypeError("Provided position type is invalid.")
+            raise TypeError("Provided position type is invalid, use either of TODAY, OPEN or STOCKS")
         return positions_res
 
 #---------------------ORDERS REPORTS----------------------------
@@ -243,14 +243,14 @@ class KSTradeApi():
         elif quoteType == 'LTP':
              quote = openapi_client.QuoteApi(self.api_client).get_ltp_quote(self.consumer_key, \
                 self.session_token, instrument_token)
-        elif quoteType == 'MARKET':
+        elif quoteType == 'DEPTH':
             quote = openapi_client.QuoteApi(self.api_client).get_market_details_quote(self.consumer_key, \
                 self.session_token, instrument_token)
         elif quoteType == 'OHLC':
             quote = openapi_client.QuoteApi(self.api_client).get_ohlc_quote(self.consumer_key, \
                 self.session_token, instrument_token)
         else:
-            raise TypeError("Provided quote type is invalid.")
+            raise TypeError("Provided quote type is invalid, use either of LTP, DEPTH or OHLC")
         return quote
 
 #-----------------------Get Order Id-------------
