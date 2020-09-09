@@ -1,0 +1,50 @@
+# Open
+
+## Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**instrumentToken** | **int** |  | [optional] 
+**normal** | **float** | Order Status | [optional] 
+**supermultiple** | **float** | Order Status | [optional] 
+**mtf** | **float** | Order Status | [optional] 
+**actualMTM** | **float** |  | [optional] 
+**actualPNL** | **float** |  | [optional] 
+**averageStockPrice** | **float** |  | [optional] 
+**bnstCredit** | **float** |  | [optional] 
+**buyOpenQtyLot** | **int** |  | [optional] 
+**buyOpenValue** | **float** |  | [optional] 
+**delStockPrice** | **float** |  | [optional] 
+**deliveryStatus** | **int** |  | [optional] 
+**denominator** | **int** |  | [optional] 
+**exchange** | **str** |  | [optional] 
+**exposureMargin** | **int** |  | [optional] 
+**exposureMarginTotal** | **int** |  | [optional] 
+**fnoBnstCredit** | **int** |  | [optional] 
+**fnoPremium** | **int** |  | [optional] 
+**grossUtilization** | **float** |  | [optional] 
+**hairCut** | **int** |  | [optional] 
+**holdStock** | **int** |  | [optional] 
+**instrumentName** | **str** |  | [optional] 
+**marginType** | **str** |  | [optional] 
+**maxCODQty** | **int** |  | [optional] 
+**multiple** | **int** |  | [optional] 
+**multipleType** | **int** |  | [optional] 
+**multiplier** | **int** |  | [optional] 
+**netTrdQtyLot** | **int** |  | [optional] 
+**netTrdValue** | **float** |  | [optional] 
+**normalSqOffQty** | **float** |  | [optional] 
+**openingStockValue** | **float** |  | [optional] 
+**premium** | **float** |  | [optional] 
+**previousMTMTrades** | **float** |  | [optional] 
+**rbiRefRate** | **int** |  | [optional] 
+**realizedPL** | **float** |  | [optional] 
+**sellOpenQtyLot** | **int** |  | [optional] 
+**sellOpenValue** | **int** |  | [optional] 
+**spanMargin** | **int** |  | [optional] 
+**spanMarginTotal** | **float** |  | [optional] 
+**spreadTotal** | **float** |  | [optional] 
+**stockBalance** | **int** |  | [optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
