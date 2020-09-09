@@ -50,92 +50,45 @@ from openapi_client import ks_api
 client = ks_api.KSTradeApi(access_token = "", userid = "", \
                               consumer_key = "", app_id = "", ip = "127.0.0.1")
 
-order_id=""
-
 # Get session for user
 client.session_login_user(password = "login@1")
 
 #Generated session token
 client.generate_session2_fa(access_code = "1111")
 
-# Placing Normal order
-try:
-    # Place a New normal order
-    order = NewNormalOrder(instrumentToken=727, tag="string", transactionType="SELL",\
-                        variety="REGULAR", quantity=1, price=1440, disclosedQuantity=0,\
-                        validity="GFD", triggerPrice=1560)
-    api_response = openapi_client.place_order(order)
-    order_id=api_response
-    print(api_response)
-except ApiException as e:
-    print("Exception when calling NormalOrderApi->place_new_normal_order: %s\n" % e)
+# Place an order
+client.place_order(instrumentToken = 727, tag = "string", transactionType = "SELL",\
+                        variety = "REGULAR", quantity = 1, price = 1440, disclosedQuantity = 0,\
+                        validity = "GFD", triggerPrice = 1560,order_type = "NO")
 
-try:
-    # Modify an existing normal order
-    existing_oder = ExistingOrder(order_id, disclosedQuantity=0, price=0,\
-            quantity=1, triggerPrice=0)
-    api_response = openapi_client.modify_order(existing_oder)
-    order_id=api_response
-    print(api_response)
-except ApiException as e:
-    print("Exception when calling NormalOrderApi->modify_normal_order: %s\n" % e)
+# Modify an order
+client.modify_order(orderId = "2200909000910", disclosedQuantity = 0, price = 0,\
+           quantity=1, triggerPrice=0,order_type="NO")
 
-try:
-    # Cancel an Normal order
-    # OrderId will be available if order is placed
-    api_response = openapi_client.cancel_order(order_id, 'NO')
-    print(api_response)
-except ApiException as e:
-    print("Exception when calling NormalOrderApi->cancel_normal_order: %s\n" % e)
+# Cancel an order
+client.cancel_order(order_id = "2200909000910", type = 'NO')
 
-try:
-    # To get todays position 
-    api_response=openapi_client.positions_today()
-    print(api_response)
-except ApiException as e:
-    print("Exception when calling PositionsApi->positions_today: %s\n" % e)
+# Get Positions
+client.get_positions("TODAY")
 
-try:
-    # Get Margin Required for an order by amount or quantity.
-    orderInfo = [
-        {"instrumentToken": 771, "quantity": 1, "price": 1300, "amount": 0, "triggerPrice": 1190},
-        {"instrumentToken": 374, "quantity": 1, "price": 1200, "amount": 0, "triggerPrice": 1150}
-        ]
-    margin_request = ReqMargin(transactionType="BUY",orderInfo=orderInfo)
-    api_response = openapi_client.margin_required(margin_request)
-    print(api_response)
-except ApiException as e:
-    print("Exception when calling MarginApi->margin_required: %s\n" % e)
+# Get Margin required
+orderInfo = [
+    {"instrumentToken": 771, "quantity": 1, "price": 1300, "amount": 0, "triggerPrice": 1190},
+    {"instrumentToken": 374, "quantity": 1, "price": 1200, "amount": 0, "triggerPrice": 1150}
+]
+client.margin_required(transactionType="BUY",orderInfo=orderInfo)
 
-try:
-    # Get order report
-    api_response = openapi_client.get_order_report()
-    print(api_response)
-except ApiException as e:
-    print("Exception when calling ReportsApi->get_order_reports: %s\n" % e)
+# Get Report Orders
+client.get_order_report()
 
-try:
-    # Get order report by orderId
-    api_response = openapi_client.get_order_report_by_order_id(order_id)
-    print(api_response)
-except ApiException as e:
-    print("Exception when calling ReportsApi->get_order_report_by_order_id: %s\n" % e)
+# Get Report Orders for order id
+client.get_order_report("2200909000910")
 
+# Get Quote details
+client.get_quote(instrument_token=110)
 
-try:
-    # Get instrument details
-    instrumentTokens=110
-    api_response=openapi_client.get_instruments_details(instrumentTokens)
-    print(api_response)
-except ApiException as e:
-    print("Exception when calling QuoteApi->get_instruments_details: %s\n" % e)
-
-try:
-    # Invalidate Session Tsoken
-    api_response = openapi_client.logout(userid)
-    print(api_response)
-except ApiException as e:
-    print("Exception when calling SessionApi->session_logout: %s\n" % e)
+#Terminate user's Session
+client.logout(userid = "")
 
 
 ```
