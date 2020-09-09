@@ -43,29 +43,20 @@ import openapi_client
 Please follow the [installation procedure](#installation--usage) and then run the following:
 
 ```python
-from openapi_client.api.api import KSTradeApi as TradingApi
-from openapi_client.models import NewNormalOrder, ExistingOrder, ReqMargin
-from openapi_client.exceptions import ApiException
+from openapi_client import ks_api
 
 # Defining the host is optional and defaults to https://sbx.kotaksecurities.com/apim
 # See configuration.py for a list of all supported configuration parameters.
-openapi_client = TradingApi(host, access_token, userid, consumer_key, app_id, ip)
+client = ks_api.KSTradeApi(access_token = "", userid = "", \
+                              consumer_key = "", app_id = "", ip = "127.0.0.1")
 
 order_id=""
 
-try:
-    # Login using password
-    api_response = openapi_client.session_login_user(password)
-    print(api_response)
-except ApiException as e:
-    print("Exception when calling SessionApi->login_with_user_id: %s\n" % e)
+# Get session for user
+client.session_login_user(password = "login@1")
 
-try:
-    # Generate final Session Token
-    api_response = openapi_client.generate_session2_fa(access_code)
-    print(api_response)
-except ApiException as e:
-    print("Exception when calling SessionApi->generate_session2_fa: %s\n" % e)
+#Generated session token
+client.generate_session2_fa(access_code = "1111")
 
 # Placing Normal order
 try:
