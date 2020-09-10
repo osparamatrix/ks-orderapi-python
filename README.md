@@ -63,10 +63,10 @@ client.place_order(instrument_token = 727, tag = "string", transaction_type = "B
    
 # Modify an order
 client.modify_order(order_id = "", disclosed_quantity = 0, price = 0,\
-           quantity=1, trigger_price=0,order_type="NO")
+           quantity=1, trigger_price=0)
 
 # Cancel an order
-client.cancel_order(order_id = "", order_type = 'NO')
+client.cancel_order(order_id = "")
 
 # Get Positions
 client.get_positions(position_type = "TODAYS")
@@ -76,7 +76,6 @@ order_info = [
     {"instrumentToken": 771, "quantity": 1, "price": 1300, "amount": 0, "triggerPrice": 1190},
     {"instrumentToken": 374, "quantity": 1, "price": 1200, "amount": 0, "triggerPrice": 1150}
 ]
-
 client.margin_required(transaction_type="BUY",order_info=order_info)
 
 # Get Report Orders for order id
