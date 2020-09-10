@@ -129,16 +129,6 @@ Class | Method | HTTP request | Description
 *SuperMultipleOrderApi* | [**modify_sm_order**](docs/SuperMultipleOrderApi.md#modify_sm_order) | **PUT** /orders/1.0/order/supermultiple | Modify an existing super multiple order
 *SuperMultipleOrderApi* | [**place_new_sm_order**](docs/SuperMultipleOrderApi.md#place_new_sm_order) | **POST** /orders/1.0/order/supermultiple | Place a New Super Multiple order
 
-## Documentation For Authorization
-
-
-## bearerAuth
-
-- **Type**: Bearer authentication (JWT)
-
-
-## Author
-
 
 
 
