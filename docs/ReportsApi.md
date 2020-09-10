@@ -4,14 +4,14 @@ All URIs are relative to *https://sbx.kotaksecurities.com/apim*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_order_report_by_order_id**](ReportsApi.md#get_order_report_by_order_id) | **GET** /reports/1.0/orders/{orderId} | Get order report by orderId
-[**get_order_reports**](ReportsApi.md#get_order_reports) | **GET** /reports/1.0/orders | Get order report
+[**get_order_report**](ReportsApi.md#get_order_report_by_order_id) | **GET** /reports/1.0/orders/{orderId} | Get order report by orderId
+[**get_order_report**](ReportsApi.md#get_order_reports) | **GET** /reports/1.0/orders | Get order report
 [**get_trade_report**](ReportsApi.md#get_trade_report) | **GET** /reports/1.0/trades | Get trade report
-[**get_trade_report_by_order_id**](ReportsApi.md#get_trade_report_by_order_id) | **GET** /reports/1.0/trades/{orderId} | Get trade report by orderId
+[**get_trade_report**](ReportsApi.md#get_trade_report_by_order_id) | **GET** /reports/1.0/trades/{orderId} | Get trade report by orderId
 
 
 # **get_order_report_by_order_id**
-> list[Orders] get_order_report_by_order_id(orderId, consumerKey, sessionToken)
+> object get_order_report(order_id)
 
 Get order report by orderId
 
@@ -21,13 +21,16 @@ Returns the specific order report
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client.rest import ApiException
+from openapi_client import ks_api
 
+client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
+                consumer_key="consumer_key", app_id="app_id", ip="IP")
+
+#First initialize session and generate session token
 try:
     # Get order report by orderId
-    api_response = openapi_client.get_order_report_by_order_id(orderId)
-    print(api_response)
-except ApiException as e:
+    client.get_order_report(order_id="order_id")
+except Exception as e:
     print("Exception when calling ReportsApi->get_order_report_by_order_id: %s\n" % e)
 ```
 
@@ -35,13 +38,11 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **orderId** | **str**|  |
- **consumerKey** | **str**|  |
- **sessionToken** | **str**|  |
+ **order_id** | **str**|  | order_id if not provided it will call order reports of ReportsApi | [optional]
 
 ### Return type
 
-[**list[Orders]**](Orders.md)
+object
 
 ### Authorization
 
@@ -67,7 +68,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_order_reports**
-> list[Orders] get_order_reports(consumerKey, sessionToken)
+> object get_order_report()
 
 Get order report
 
@@ -77,16 +78,16 @@ Returns the full order report for a client.
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from __future__ import print_function
-import time
+from openapi_client import ks_api
 
-from openapi_client.rest import ApiException
+client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
+                consumer_key="consumer_key", app_id="app_id", ip="IP")
 
+#First initialize session and generate session token
 try:
     # Get order report
-    api_response = openapi_client.get_order_reports()
-    print(api_response)
-except ApiException as e:
+    client.get_order_report()
+except Exception as e:
     print("Exception when calling ReportsApi->get_order_reports: %s\n" % e)
 ```
 
@@ -94,12 +95,11 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **consumerKey** | **str**|  |
- **sessionToken** | **str**|  |
+
 
 ### Return type
 
-[**list[Orders]**](Orders.md)
+object
 
 ### Authorization
 
@@ -125,7 +125,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_trade_report**
-> list[Trades] get_trade_report(consumerKey=consumerKey, sessionToken=sessionToken)
+> object get_trade_report(order_id="order_id")
 
 Get trade report
 
@@ -135,12 +135,16 @@ Returns the full trade report
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client.rest import ApiException
+from openapi_client import ks_api
+
+client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
+                consumer_key="consumer_key", app_id="app_id", ip="IP")
+				
+#First initialize session and generate session token
 
 try:
     # Get trade report
-    api_response = openapi_client.get_trade_report()
-    print(api_response)
+    client.get_trade_report()
 except ApiException as e:
     print("Exception when calling ReportsApi->get_trade_report: %s\n" % e)
 ```
@@ -149,12 +153,11 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **consumerKey** | **str**| Unique ID for your application | [optional]
- **sessionToken** | **str**| Session ID for your application | [optional]
+
 
 ### Return type
 
-[**list[Trades]**](Trades.md)
+object
 
 ### Authorization
 
@@ -180,7 +183,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_trade_report_by_order_id**
-> list[Trades] get_trade_report_by_order_id(orderId, consumerKey, sessionToken)
+> object get_trade_report(order_id)
 
 Get trade report by orderId
 
@@ -190,12 +193,16 @@ Returns the trade report for a orderId
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client.rest import ApiException
+from openapi_client import ks_api
+
+client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
+                consumer_key="consumer_key", app_id="app_id", ip="IP")
+				
+#First initialize session and generate session token
 
 try:
     # Get trade report by orderId
-    api_response = openapi_client.get_trade_report_by_order_id(orderId)
-    print(api_response)
+    client.get_trade_report(order_id="order_id")
 except ApiException as e:
     print("Exception when calling ReportsApi->get_trade_report_by_order_id: %s\n" % e)
 ```
@@ -204,13 +211,11 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **orderId** | **str**|  |
- **consumerKey** | **str**| Unique ID for your application |
- **sessionToken** | **str**| Session ID for your application |
+ **order_id** | **str**|  | order_id if not provided it will call trade reports of ReportsApi | [optional]
 
 ### Return type
 
-[**list[Trades]**](Trades.md)
+object
 
 ### Authorization
 

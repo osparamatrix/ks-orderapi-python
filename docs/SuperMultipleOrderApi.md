@@ -4,12 +4,13 @@ All URIs are relative to *https://sbx.kotaksecurities.com/apim*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**place_new_sm_order**](SuperMultipleOrderApi.md#place_new_sm_order) | **POST** /orders/1.0/order/supermultiple | Place a New Super Multiple order
-[**modify_sm_order**](SuperMultipleOrderApi.md#modify_sm_order) | **PUT** /orders/1.0/order/supermultiple | Modify an existing super multiple order
-[**cancel_sm_order**](SuperMultipleOrderApi.md#cancel_sm_order) | **DELETE** /orders/1.0/order/supermultiple/{orderId} | Cancel an Super Multiple order
+[**place_order**](SuperMultipleOrderApi.md#place_new_sm_order) | **POST** /orders/1.0/order/supermultiple | Place a New Super Multiple order
+[**modify_order**](SuperMultipleOrderApi.md#modify_sm_order) | **PUT** /orders/1.0/order/supermultiple | Modify an existing super multiple order
+[**cancel_order**](SuperMultipleOrderApi.md#cancel_sm_order) | **DELETE** /orders/1.0/order/supermultiple/{orderId} | Cancel an Super Multiple order
 
 # **place_new_sm_order**
-> ResNewSMOrder place_new_sm_order(consumerKey, sessionToken, NewSMOrder)
+> object place_order(instrument_token , tag, transaction_type, variety, quantity, price, disclosed_quantity,\
+>                                 validity, trigger_price, order_type)
 
 Place a New Super Multiple order
 
@@ -17,18 +18,19 @@ Place a New Super Multiple order
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
+from openapi_client import ks_api
 
-from openapi_client.rest import ApiValueError
-from openapi_client.models import NewSMOrder
+client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
+                consumer_key="consumer_key", app_id="app_id", ip="IP")
+
+#First initialize session and generate session token
 
 
 try:
-    # Place a New Super Multiple order
-    order = NewSMOrder(tag="string", transactionType="BUY", instrumentToken=727,\
-            variety="REGULAR", quantity=1, price=0, disclosedQuantity=0, \
-            validity="GFD", triggerPrice=1005)
-    api_response = openapi_client.place_order(order)
-    print(api_response)
+    # Place a New order
+    client.place_order(instrument_token = "instrument_token", tag = "tag", transaction_type = "transaction_type",\
+                        variety = "variety", quantity = "quantity", price = "price", disclosed_quantity = "disclosed_quantity",\
+                        validity = "validity", trigger_price = "trigger_price", order_type = "SMO")
 except ApiException as e:
     print("Exception when calling SuperMultipleOrderApi->place_new_sm_order: %s\n" % e)
 ```
@@ -37,13 +39,20 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **consumerKey** | **str**| Unique ID for your application |
- **sessionToken** | **str**| Session ID Generated with successful login. |
- **NewSMOrder** | [**NewSMOrder**](NewSMOrder.md)|  |
+**instrument_token** | **int** | Instrument token of the scrip to be traded |
+**transaction_type** | **str** | Transaction Type - BUY or SELL |
+**quantity** | **int** | Order quantity - specified in same unit as quoted in market depth |
+**price** | **float** | Order Price, non zero positive for limit order and zero for market order |
+**validity** | **str** | Validity of the order - GFD, IOC etc | [optional] 
+**variety** | **str** | Variety of the order - REGULAR, AMO, SQUAREOFF - for Super Multiple Orders etc | [optional] 
+**disclosed_quantity** | **int** | Quantity to be disclosed in order | 
+**trigger_price** | **float** | Trigger price, required for stoploss or supermultiple order | 
+**tag** | **str** | Tag for this order | [optional] 
+**order_type** | **str**|  | For NormalOrderApi, order_type is "SMO"
 
 ### Return type
 
-[**ResNewSMOrder**](ResNewSMOrder.md)
+object
 
 ### Authorization
 
@@ -69,7 +78,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **modify_sm_order**
-> ResSMOrderMod modify_sm_order(consumerKey, sessionToken, ExistingSMOrder)
+> object modify_order(order_id, disclosed_quantity, price, quantity, trigger_price, order_type)
 
 Modify an existing super multiple order
 
@@ -77,16 +86,18 @@ Modify an existing super multiple order
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client.rest import ApiException
-from openapi_client.models import  ExistingSMOrder
+from openapi_client import ks_api
+
+client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
+                consumer_key="consumer_key", app_id="app_id", ip="IP")
+
+#First initialize session and generate session token
 
 try:
-    # Modify an existing super multiple order
-    existing_oder = ExistingSMOrder(order_id, disclosedQuantity=0,\
-                    price=0, quantity=11, triggerPrice=1000)
-    api_response = openapi_client.modify_order(existing_oder)
-    print(api_response)
-except ApiException as e:
+    # Modify an existing order
+    client.modify_order(order_id="order_id", disclosed_quantity="disclosed_quantity", price="price",\
+                                  quantity="quantity", trigger_price="trigger_price", order_type="SMO")
+except Exception as e:
     print("Exception when calling SuperMultipleOrderApi->modify_sm_order: %s\n" % e)
 ```
 
@@ -94,13 +105,16 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **consumerKey** | **str**| Unique ID for your application |
- **sessionToken** | **str**| Session ID for your application |
- **ExistingSMOrder** | [**ExistingSMOrder**](ExistingSMOrder.md)|  |
+**order_id** | **str** | Order ID of the order to be modified | 
+**quantity** | **int** | Order quantity - specified in same unit as quoted in market depth |
+**price** | **float** | Order Price, non zero positive for limit order and zero for market order | 
+**disclosed_quantity** | **int** | Quantity to be disclosed in order |
+**trigger_price** | **float** | Trigger price, required for stoploss or supermultiple order |
+**order_type** | **str**| For SuperMultipleOrderApi, order_type is "SMO" if not provided it will call modify order of OrderApi | [optional ]
 
 ### Return type
 
-[**ResSMOrderMod**](ResSMOrderMod.md)
+object
 
 ### Authorization
 
@@ -126,7 +140,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **cancel_sm_order**
-> ResSMOrderCancel cancel_sm_order(consumerKey, sessionToken, orderId)
+> object cancel_order(order_id , order_type)
 
 Cancel an Super Multiple order
 
@@ -134,14 +148,17 @@ Cancel an Super Multiple order
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client.rest import ApiException
+from openapi_client import ks_api
+
+client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
+                consumer_key="consumer_key", app_id="app_id", ip="IP")
+
+#First initialize session and generate session token
 
 try:
-    # Cancel an Super Multiple order
-    # OrderId will be available if order is placed
-    api_response = openapi_client.cancel_order(orderId, 'SMO')
-    print(api_response)
-except ApiException as e:
+   # Cancel an order
+    client.cancel_order(order_id = "order_id", order_type = "SMO")
+except Exception as e:
     print("Exception when calling SuperMultipleOrderApi->cancel_sm_order: %s\n" % e)
 ```
 
@@ -149,13 +166,12 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **consumerKey** | **str**|  |
- **sessionToken** | **str**|  |
- **orderId** | **str**| Order ID to cancel. |
+ **order_id** | **str**| Order ID to cancel. | 
+ **order_type** | **str** | For SuperMultipleOrderApi, order_type is "SMO" if not provided it will call cancel order of OrderApi | [optional]
 
 ### Return type
 
-[**ResSMOrderCancel**](ResSMOrderCancel.md)
+object
 
 ### Authorization
 

@@ -4,46 +4,44 @@ All URIs are relative to *https://sbx.kotaksecurities.com/apim*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**place_new_order**](OrderApi.md#place_new_order) | **POST** /orders/1.0/orders | Place a New order
-[**modify_order**](OrderApi.md#modify_order) | **PUT** /orders/1.0/orders | Modify an existing order
 [**cancel_order**](OrderApi.md#cancel_order) | **DELETE** /orders/1.0/orders/{orderId} | Cancel an order
+[**modify_order**](OrderApi.md#modify_order) | **PUT** /orders/1.0/orders | Modify an existing order
+[**place_new_order**](OrderApi.md#place_new_order) | **POST** /orders/1.0/orders | Place a New order
 
-# **place_new_order**
-> ResNewOrder place_new_order(consumerKey, sessionToken, NewOrder)
 
-Place a New order
+# **cancel_order**
+> object cancel_order(order_id , order_type)
+
+Cancel an order
 
 ### Example
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
+from openapi_client import ks_api
 
+client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
+                consumer_key="consumer_key", app_id="app_id", ip="IP")
 
-from openapi_client.rest import ApiException
-from openapi_client.models import NewOrder
+#First initialize session and generate session token
 
 try:
-    # Place a New order
-    order = NewOrder(instrumentToken=727, tag="string", transactionType="BUY",\
-                                variety="REGULAR", quantity=12, price=10, disclosedQuantity=0,\
-                                validity="GFD", triggerPrice=0, product="NORMAL")
-    api_response = api_instance.place_order(order)
-    print(api_response)
-except ApiException as e:
-    print("Exception when calling OrderApi->place_new_order: %s\n" % e)
+    # Cancel an order
+    client.cancel_order(order_id = "order_id", order_type = "O")
+except Exception as e:
+    print("Exception when calling OrderApi->cancel_order: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **consumerKey** | **str**| Unique ID for your application |
- **sessionToken** | **str**| Session ID Generated with successful login. |
- **NewOrder** | [**NewOrder**](NewOrder.md)|  |
+ **order_id** | **str**| Order ID to cancel. | 
+ **order_type** | **str** | For OrderApi, order_type is "O" if not provided it will call cancel order of OrderApi | [optional]
 
 ### Return type
 
-[**ResNewOrder**](ResNewOrder.md)
+**object**
 
 ### Authorization
 
@@ -51,13 +49,13 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Order placed successfully |  -  |
+**200** | Order cancelled successfully |  -  |
 **400** | Invalid or missing input parameters |  -  |
 **403** | Invalid session, please re-login to continue |  -  |
 **429** | Too many requests to the API |  -  |
@@ -69,7 +67,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **modify_order**
-> ResOrderMod modify_order(consumerKey, sessionToken, ExistingOrder)
+> object modify_order(order_id, disclosed_quantity, price, quantity, trigger_price, order_type)
 
 Modify an existing order
 
@@ -77,18 +75,18 @@ Modify an existing order
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
+from openapi_client import ks_api
 
-from openapi_client.rest import ApiException
-from openapi_client.models import ExistingOrder
+client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
+                consumer_key="consumer_key", app_id="app_id", ip="IP")
 
+#First initialize session and generate session token
 
 try:
     # Modify an existing order
-    existing_order = ExistingOrder(order_id, disclosedQuantity=10, price=0,\
-                                quantity=100, triggerPrice=10)
-    api_response = api_instance.modify_order(existing)
-    print(api_response)
-except ApiException as e:
+    client.modify_order(order_id="order_id", disclosed_quantity="disclosed_quantity", price="price",\
+                                  quantity="quantity", trigger_price="trigger_price", order_type="O")
+except Exception as e:
     print("Exception when calling OrderApi->modify_order: %s\n" % e)
 ```
 
@@ -96,13 +94,16 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **consumerKey** | **str**| Unique ID for your application |
- **sessionToken** | **str**| Session ID for your application |
- **ExistingOrder** | [**ExistingOrder**](ExistingOrder.md)|  |
+**order_id** | **str** | Order ID of the order to be modified | 
+**quantity** | **int** | Order quantity - specified in same unit as quoted in market depth |
+**price** | **float** | Order Price, non zero positive for limit order and zero for market order | 
+**disclosed_quantity** | **int** | Quantity to be disclosed in order |
+**trigger_price** | **float** | Trigger price, required for stoploss or supermultiple order |
+**order_type** | **str**| For OrderApi, order_type is "O" if not provided it will call modify order of OrderApi | [optional ]
 
 ### Return type
 
-[**ResOrderMod**](ResOrderMod.md)
+**object**
 
 ### Authorization
 
@@ -127,40 +128,52 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **cancel_order**
-> ResOrderCancel cancel_order(consumerKey, sessionToken, orderId)
+# **place_new_order**
+> object place_order(instrument_token , tag, transaction_type, variety, quantity, price, disclosed_quantity,\
+>                                 validity, trigger_price, product, smart_order_routing, order_type)
 
-Cancel an order
+Place a New order
 
 ### Example
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
+from openapi_client import ks_api
 
+client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
+                consumer_key="consumer_key", app_id="app_id", ip="IP")
 
-from openapi_client.rest import ApiException
+#First initialize session and generate session token
 
 try:
-    # Cancel order
-    # OrderId will be available if order is placed
-    api_response = openapi_client.cancel_order(orderId, 'O')
-
-    print(api_response)
-except ApiException as e:
-    print("Exception when calling OrderApi->cancel_order: %s\n" % e)
+    # Place a New order
+    client.place_order(instrument_token = "instrument_token", tag="tag", transaction_type="transaction_type",\
+                                    variety="variety", quantity="quantity", price="price", disclosed_quantity="disclosed_quantity",\
+                                    validity="validity", trigger_price="trigger_price", product="product",\
+									smart_order_routing="smart_order_routing", order_type="O")
+except Exception as e:
+    print("Exception when calling OrderApi->place_new_order: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **consumerKey** | **str**|  |
- **sessionToken** | **str**|  |
- **orderId** | **str**| Order ID to cancel. |
+**instrument_token** | **int** | Instrument token of the scrip to be traded |
+**transaction_type** | **str** | Transaction Type - BUY or SELL |
+**quantity** | **int** | Order quantity - specified in same unit as quoted in market depth |
+**price** | **float** | Order Price, non zero positive for limit order and zero for market order |
+**product** | **str** | Product type for this order - NORMAL, SUPERMULTIPLE, SUPERMULTIPLEOPTION, MTF |
+**validity** | **str** | Validity of the order - GFD, IOC etc | [optional] 
+**variety** | **str** | Variety of the order - REGULAR, AMO, SQUAREOFF - for Super Multiple Orders etc | [optional] 
+**disclosed_quantity** | **int** | Quantity to be disclosed in order | 
+**trigger_price** | **float** | Trigger price, required for stoploss or supermultiple order | 
+**tag** | **str** | Tag for this order | [optional] 
+**smart_order_routing** | **str** | smart Order Routing for this order | 
+**order_type** | **str**|  | For OrderApi, order_type is "O"
 
 ### Return type
 
-[**ResOrderCancel**](ResOrderCancel.md)
+**object**
 
 ### Authorization
 
@@ -168,13 +181,13 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Order cancelled successfully |  -  |
+**200** | Order placed successfully |  -  |
 **400** | Invalid or missing input parameters |  -  |
 **403** | Invalid session, please re-login to continue |  -  |
 **429** | Too many requests to the API |  -  |
@@ -184,3 +197,4 @@ Name | Type | Description  | Notes
 **504** | Gateway timeout, trade API is unreachable |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+

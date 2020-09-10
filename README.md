@@ -43,7 +43,7 @@ import openapi_client
 Please follow the [installation procedure](#installation--usage) and then run the following:
 
 ```python
-from openapi_client import ks_api
+from openapi_client import ks_api 
 
 # Defining the host is optional and defaults to https://sbx.kotaksecurities.com/apim
 # See configuration.py for a list of all supported configuration parameters.
@@ -51,45 +51,45 @@ client = ks_api.KSTradeApi(access_token = "", userid = "", \
                               consumer_key = "", app_id = "", ip = "127.0.0.1")
 
 # Get session for user
-client.login(password = "login@1")
+client.login(password = "")
 
 #Generated session token
-client.generate_session2_fa(access_code = "1111")
+client.generate_session2_fa(access_code = "")
 
 # Place an order
-client.place_order(instrumentToken = 727, tag = "string", transactionType = "SELL",\
-                        variety = "REGULAR", quantity = 1, price = 1440, disclosedQuantity = 0,\
-                        validity = "GFD", triggerPrice = 1560,order_type = "NO")
-
+client.place_order(instrument_token = 727, tag = "string", transaction_type = "BUY",\
+                        variety = "REGULAR", quantity = 1, price = 0, disclosed_quantity = 0,\
+                        validity = "GFD", trigger_price = 0,order_type = "NO")
+   
 # Modify an order
-client.modify_order(orderId = "2200909000910", disclosedQuantity = 0, price = 0,\
-           quantity=1, triggerPrice=0,order_type="NO")
+client.modify_order(order_id = "", disclosed_quantity = 0, price = 0,\
+           quantity=1, trigger_price=0,order_type="NO")
 
 # Cancel an order
-client.cancel_order(order_id = "2200909000910", type = 'NO')
+client.cancel_order(order_id = "", order_type = 'NO')
 
 # Get Positions
-client.get_positions("TODAY")
+client.get_positions(position_type = "TODAYS")
 
 # Get Margin required
-orderInfo = [
+order_info = [
     {"instrumentToken": 771, "quantity": 1, "price": 1300, "amount": 0, "triggerPrice": 1190},
     {"instrumentToken": 374, "quantity": 1, "price": 1200, "amount": 0, "triggerPrice": 1150}
 ]
-client.margin_required(transactionType="BUY",orderInfo=orderInfo)
 
-# Get Report Orders
-client.get_order_report()
+client.margin_required(transaction_type="BUY",order_info=order_info)
 
 # Get Report Orders for order id
-client.get_order_report("2200909000910")
+client.get_order_report(order_id="")
+
+# Get Report Orders 
+client.get_order_report()
 
 # Get Quote details
 client.get_quote(instrument_token=110)
 
 #Terminate user's Session
 client.logout(userid = "")
-
 
 ```
 ## Documentation for API Endpoints
@@ -108,7 +108,6 @@ Class | Method | HTTP request | Description
 *OrderApi* | [**cancel_order**](docs/OrderApi.md#cancel_order) | **DELETE** /orders/1.0/orders/{orderId} | Cancel an order
 *OrderApi* | [**modify_order**](docs/OrderApi.md#modify_order) | **PUT** /orders/1.0/orders | Modify an existing order
 *OrderApi* | [**place_new_order**](docs/OrderApi.md#place_new_order) | **POST** /orders/1.0/orders | Place a New order
-*PositionsApi* | [**positions**](docs/PositionsApi.md#positions) | **GET** /positions/1.0/positions | Get&#39;s raw position from Trading Engine.
 *PositionsApi* | [**positions_open**](docs/PositionsApi.md#positions_open) | **GET** /positions/1.0/positions/open | Get&#39;s Open position.
 *PositionsApi* | [**positions_stocks**](docs/PositionsApi.md#positions_stocks) | **GET** /positions/1.0/positions/stocks | Get&#39;s Sell from Existing stocks.
 *PositionsApi* | [**positions_today**](docs/PositionsApi.md#positions_today) | **GET** /positions/1.0/positions/todays | Get&#39;s Todays position.
@@ -134,69 +133,27 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [Bracketcancel](docs/Bracketcancel.md)
  - [Bracketmodify](docs/Bracketmodify.md)
  - [Bracketplace](docs/Bracketplace.md)
- - [Buy](docs/Buy.md)
- - [Codcancel](docs/Codcancel.md)
  - [Codmodify](docs/Codmodify.md)
  - [Codplace](docs/Codplace.md)
  - [Ctdmodify](docs/Ctdmodify.md)
  - [Ctdplace](docs/Ctdplace.md)
- - [Depth](docs/Depth.md)
  - [ExistingMTFOrder](docs/ExistingMTFOrder.md)
  - [ExistingNormalOrder](docs/ExistingNormalOrder.md)
  - [ExistingOrder](docs/ExistingOrder.md)
  - [ExistingSMOrder](docs/ExistingSMOrder.md)
  - [ExistingSOROrder](docs/ExistingSOROrder.md)
  - [Fault](docs/Fault.md)
- - [Gtccancel](docs/Gtccancel.md)
  - [Gtcmodify](docs/Gtcmodify.md)
  - [Gtcplace](docs/Gtcplace.md)
- - [History](docs/History.md)
- - [Instrument](docs/Instrument.md)
- - [LTPQuote](docs/LTPQuote.md)
- - [MarginDet](docs/MarginDet.md)
- - [MarketDetailsQuote](docs/MarketDetailsQuote.md)
  - [NewMTFOrder](docs/NewMTFOrder.md)
  - [NewNormalOrder](docs/NewNormalOrder.md)
  - [NewOrder](docs/NewOrder.md)
  - [NewSMOrder](docs/NewSMOrder.md)
  - [NewSOROrder](docs/NewSOROrder.md)
- - [OHLCQuote](docs/OHLCQuote.md)
- - [Open](docs/Open.md)
  - [OrderInfo](docs/OrderInfo.md)
- - [Orders](docs/Orders.md)
- - [Positions](docs/Positions.md)
  - [ReqMargin](docs/ReqMargin.md)
- - [ResLogin](docs/ResLogin.md)
- - [ResLogout](docs/ResLogout.md)
- - [ResMTFMod](docs/ResMTFMod.md)
- - [ResMTFOrderCancel](docs/ResMTFOrderCancel.md)
- - [ResNewMTFOrder](docs/ResNewMTFOrder.md)
- - [ResNewNormalOrder](docs/ResNewNormalOrder.md)
- - [ResNewOrder](docs/ResNewOrder.md)
- - [ResNewSMOrder](docs/ResNewSMOrder.md)
- - [ResNewSOROrder](docs/ResNewSOROrder.md)
- - [ResNormalOrderCancel](docs/ResNormalOrderCancel.md)
- - [ResNormalOrderMod](docs/ResNormalOrderMod.md)
- - [ResOrderCancel](docs/ResOrderCancel.md)
- - [ResOrderMod](docs/ResOrderMod.md)
- - [ResSMOrderCancel](docs/ResSMOrderCancel.md)
- - [ResSMOrderMod](docs/ResSMOrderMod.md)
- - [ResSOROrderCancel](docs/ResSOROrderCancel.md)
- - [ResSOROrderMod](docs/ResSOROrderMod.md)
- - [ResSession2FA](docs/ResSession2FA.md)
- - [ResSessionInit](docs/ResSessionInit.md)
- - [ResSessionInitEncryption](docs/ResSessionInitEncryption.md)
- - [ResSessionInitRedirect](docs/ResSessionInitRedirect.md)
- - [ResSessionInitWeblink](docs/ResSessionInitWeblink.md)
- - [Sell](docs/Sell.md)
- - [Sor](docs/Sor.md)
- - [Stocks](docs/Stocks.md)
- - [Todays](docs/Todays.md)
- - [Trades](docs/Trades.md)
- - [Tslocancel](docs/Tslocancel.md)
  - [Tslomodify](docs/Tslomodify.md)
  - [Tsloplace](docs/Tsloplace.md)
  - [UserCredentials](docs/UserCredentials.md)

@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **margin_required**
-> list[MarginDet] margin_required(consumerKey, sessionToken, ReqMargin=ReqMargin)
+> object margin_required(transaction_type = "transaction_type",order_info = "order_info")
 
 Get Margin Required for an order by amount or quantity.
 
@@ -18,8 +18,12 @@ Returns margin required for Equity, Super Multiple & MTF Order.
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client.rest import ApiException
-from openapi_client.models import  ReqMargin
+from openapi_client import ks_api
+
+client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
+                consumer_key="consumer_key", app_id="app_id", ip="IP")
+
+#First initialize session and generate session token
 
 try:
     # Get Margin Required for an order by amount or quantity.
@@ -27,8 +31,7 @@ try:
         {"instrumentToken": 771, "quantity": 1, "price": 1300, "amount": 0, "triggerPrice": 1190},
         {"instrumentToken": 374, "quantity": 1, "price": 1200, "amount": 0, "triggerPrice": 1150}
         ]
-    margin_request = ReqMargin(transactionType="BUY",orderInfo=orderInfo)
-    api_response = openapi_client.margin_required(margin_request)
+    api_response = openapi_client.margin_required(transaction_type="BUY",order_info=order_info)
     print(api_response)
 except ApiException as e:
     print("Exception when calling MarginApi->margin_required: %s\n" % e)
@@ -38,13 +41,12 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **consumerKey** | **str**|  |
- **sessionToken** | **str**|  |
- **ReqMargin** | [**ReqMargin**](ReqMargin.md)|  | [optional]
+**transactionType** | **str** | Transaction Type - BUY or SELL | 
+**orderInfo** | [**list[OrderInfo]**](OrderInfo.md) |  | 
 
 ### Return type
 
-[**list[MarginDet]**](MarginDet.md)
+**object**
 
 ### Authorization
 
@@ -68,3 +70,4 @@ Name | Type | Description  | Notes
 **504** | Gateway timeout, trade API is unreachable |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+

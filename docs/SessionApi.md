@@ -4,14 +4,15 @@ All URIs are relative to *https://sbx.kotaksecurities.com/apim*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**session_init**](SessionApi.md#session_init) | **GET** /session/1.0/session/init | Initialise Session
-[**login_with_user_id**](SessionApi.md#login_with_user_id) | **POST** /session/1.0/session/login/userid | Login using Userid
+[**ks_api.KSTradeApi**](SessionApi.md#session_init) | **GET** /session/1.0/session/init | Initialise Session
+[**login**](SessionApi.md#login_with_user_id) | **POST** /session/1.0/session/login/userid | Login using Userid
 [**generate_session2_fa**](SessionApi.md#generate_session2_fa) | **POST** /session/1.0/session/2FA/accesscode | Generate final Session Token
-[**session_logout**](SessionApi.md#session_logout) | **DELETE** /session/1.0/session/logout | Invalidate Session Token
+[**logout**](SessionApi.md#session_logout) | **DELETE** /session/1.0/session/logout | Invalidate Session Token
 
 
 # **session_init**
-> ResSessionInit session_init(userid, consumerKey, ip, appId)
+> ks_api.KSTradeApi(access_token="access_token", userid="userid", \
+                consumer_key="consumer_key", app_id="app_id", ip="IP")
 
 Initialise Session
 
@@ -21,14 +22,11 @@ API to initiate trading session for a UserId
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
+from openapi_client import ks_api
 
-from openapi_client.api.api import KSTradeApi as TradingApi
-from openapi_client.settings import host, access_token, userid, \
-                        consumer_key, app_id, access_code
-# Defining the host is optional and defaults to https://sbx.kotaksecurities.com/apim
-# See configuration.py for a list of all supported configuration parameters.
-openapi_client = TradingApi(host, access_token, userid, consumer_key, app_id)
-# Enter a context with an instance of the API client
+#the session initializes when following constructor is called
+client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
+                consumer_key="consumer_key", app_id="app_id", ip="IP")
 ```
 
 ### Parameters
@@ -36,13 +34,11 @@ openapi_client = TradingApi(host, access_token, userid, consumer_key, app_id)
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **userid** | **str**|  |
- **consumerKey** | **str**|  |
+ **consumer_key** | **str**|  |
  **ip** | **str**|  |
- **appId** | **str**|  |
+ **app_id** | **str**|  |
+ **access_token** | **str**|  |
 
-### Return type
-
-[**ResSessionInit**](ResSessionInit.md)
 
 ### Authorization
 
@@ -67,7 +63,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **login_with_user_id**
-> ResLogin login_with_user_id(consumerKey, ip, appId, UserCredentials=UserCredentials)
+> object login(password)
 
 Login using Userid
 
@@ -78,13 +74,15 @@ Authenticate userid and password to gnerrated one time token
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
 
-from openapi_client.rest import ApiException
+from openapi_client import ks_api
+
+client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
+                consumer_key="consumer_key", app_id="app_id", ip="IP")
 
 try:
     # Login using password
-    api_response = openapi_client.session_login_user(password)
-    print(api_response)
-except ApiException as e:
+    client.login(password)
+except Exception as e:
     print("Exception when calling SessionApi->login_with_user_id: %s\n" % e)
 ```
 
@@ -92,14 +90,11 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **consumerKey** | **str**|  |
- **ip** | **str**|  |
- **appId** | **str**|  |
- **UserCredentials** | [**UserCredentials**](UserCredentials.md)|  | [optional]
+ **password** | **str**|  |
 
 ### Return type
 
-[**ResLogin**](ResLogin.md)
+object
 
 ### Authorization
 
@@ -125,7 +120,7 @@ Name | Type | Description  | Notes
 
 
 # **generate_session2_fa**
-> ResSession2FA generate_session2_fa(oneTimeToken, consumerKey, ip, appId, UserDetails=UserDetails)
+> object generate_session2_fa(access_code)
 
 Generate final Session Token
 
@@ -136,14 +131,15 @@ API to generate final session for user based on one time token
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
 
-from openapi_client.rest import ApiException
+from openapi_client import ks_api
 
-
+client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
+                consumer_key="consumer_key", app_id="app_id", ip="IP")
+				
 try:
     # Generate final Session Token
-    api_response = openapi_client.generate_session2_fa(access_code)
-    print(api_response)
-except ApiException as e:
+    client.generate_session2_fa(access_code)
+except Exception as e:
     print("Exception when calling SessionApi->generate_session2_fa: %s\n" % e)
 ```
 
@@ -151,15 +147,11 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **oneTimeToken** | **str**|  |
- **consumerKey** | **str**|  |
- **ip** | **str**|  |
- **appId** | **str**|  |
- **UserDetails** | [**UserDetails**](UserDetails.md)|  | [optional]
+ **access_code** | **str**|  |
 
 ### Return type
 
-[**ResSession2FA**](ResSession2FA.md)
+object
 
 ### Authorization
 
@@ -184,7 +176,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **session_logout**
-> ResLogout session_logout(sessionToken, consumerKey, ip, appId, userid)
+> object logout(userid)
 
 Invalidate Session Token
 
@@ -195,13 +187,17 @@ API to invalidate final session for user.
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
 
-from openapi_client.rest import ApiException
+from openapi_client import ks_api
+
+client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
+                consumer_key="consumer_key", app_id="app_id", ip="IP")
+
+#First initialize session and generate session token
 
 try:
     # Invalidate Session Tsoken
-    api_response = openapi_client.session_logout()
-    print(api_response)
-except ApiException as e:
+    openapi_client.session_logout()
+except Exception as e:
     print("Exception when calling SessionApi->session_logout: %s\n" % e)
 ```
 
@@ -209,15 +205,11 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sessionToken** | **str**|  |
- **consumerKey** | **str**|  |
- **ip** | **str**|  |
- **appId** | **str**|  |
  **userid** | **str**|  |
 
 ### Return type
 
-[**ResLogout**](ResLogout.md)
+object
 
 ### Authorization
 

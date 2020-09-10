@@ -4,16 +4,14 @@ All URIs are relative to *https://sbx.kotaksecurities.com/apim*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_instruments_details**](QuoteApi.md#get_instruments_details) | **GET** /quotes/v1.0/instruments/{instrumentTokens} | Get full details
-[**get_ltp_quote**](QuoteApi.md#get_ltp_quote) | **GET** /quotes/v1.0/ltp/instruments/{instrumentTokens} | Get LTP quote
-[**get_market_details_quote**](QuoteApi.md#get_market_details_quote) | **GET** /quotes/v1.0/depth/instruments/{instrumentTokens} | Get market details quote
-[**get_ohlc_quote**](QuoteApi.md#get_ohlc_quote) | **GET** /quotes/v1.0/ohlc/instruments/{instrumentTokens} | Get OHLC quote
+[**get_quote**](QuoteApi.md#get_instruments_details) | **GET** /quotes/v1.0/instruments/{instrumentTokens} | Get full details
+[**get_quote**](QuoteApi.md#get_ltp_quote) | **GET** /quotes/v1.0/ltp/instruments/{instrumentTokens} | Get LTP quote
+[**get_quote**](QuoteApi.md#get_market_details_quote) | **GET** /quotes/v1.0/depth/instruments/{instrumentTokens} | Get market details quote
+[**get_quote**](QuoteApi.md#get_ohlc_quote) | **GET** /quotes/v1.0/ohlc/instruments/{instrumentTokens} | Get OHLC quote
 
 
 # **get_instruments_details**
-> list[Instrument] get_instruments_details(consumerKey, sessionToken, instrumentTokens)
-
-Get full details
+> object get_quote(instrument_token)
 
 Get full details
 
@@ -21,14 +19,17 @@ Get full details
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client.rest import ApiException
+from openapi_client import ks_api
+
+client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
+                consumer_key="consumer_key", app_id="app_id", ip="IP")
+
+#First initialize session and generate session token
 
 try:
     # Get instrument details
-    instrumentTokens=110
-    api_response=openapi_client.get_instruments_details(instrumentTokens)
-	print(api_response)
-except ApiException as e:
+    client.get_quote(instrument_token=110)
+except Exception as e:
 	print("Exception when calling QuoteApi->get_instruments_details: %s\n" % e)
 ```
 
@@ -36,13 +37,11 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **consumerKey** | **str**|  | 
- **sessionToken** | **str**|  | 
- **instrumentTokens** | **str**|  | 
+ **instrument_token** | **str**|  | 
 
 ### Return type
 
-[**list[Instrument]**](Instrument.md)
+object
 
 ### Authorization
 
@@ -61,7 +60,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_ltp_quote**
-> list[LTPQuote] get_ltp_quote(consumerKey, sessionToken, instrumentTokens)
+> object get_quote(instrument_token, quote_type)
 
 Get LTP quote
 
@@ -71,13 +70,17 @@ Returns the LTP for an array of scrips
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client.rest import ApiException
+from openapi_client import ks_api
+
+client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
+                consumer_key="consumer_key", app_id="app_id", ip="IP")
+				
+#First initialize session and generate session token
+
 try:
 	# Get LTP quote details
-	instrumentTokens=110
-    api_response=openapi_client.get_ltp_quote(instrumentTokens)
-	print(api_response)
-except ApiException as e:
+    client.get_quote(instrument_token=110, quote_type = "LTP")
+except Exception as e:
 	print("Exception when calling QuoteApi->get_ltp_quote: %s\n" % e)
 ```
 
@@ -85,13 +88,12 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **consumerKey** | **str**|  | 
- **sessionToken** | **str**|  | 
- **instrumentTokens** | **str**| Instrument token of the scrip for which quote | 
+ **instrument_token** | **str**| Instrument token of the scrip for which quote | 
+ **quote_type** | **str** |  quote_type is "LTP" if not provided it will call instrument details of QuoteAPI | [optional]
 
 ### Return type
 
-[**list[LTPQuote]**](LTPQuote.md)
+object
 
 ### Authorization
 
@@ -117,7 +119,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_market_details_quote**
-> MarketDetailsQuote get_market_details_quote(consumerKey, sessionToken, instrumentTokens)
+> object get_quote(instrument_token, quote_type)
 
 Get market details quote
 
@@ -127,13 +129,16 @@ Returns market depth details for an array of scrips
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client.rest import ApiException
+from openapi_client import ks_api
+
+client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
+                consumer_key="consumer_key", app_id="app_id", ip="IP")
+				
+#First initialize session and generate session token
 try:
 	# Get market details of quote
-	instrumentTokens=110
-    api_response=openapi_client.get_market_details(instrumentTokens)
-	print(api_response)
-except ApiException as e:
+    client.get_quote(instrument_token=110, quote_type = "DEPTH")
+except Exception as e:
 	print("Exception when calling QuoteApi->get_market_details: %s\n" % e)
 ```
 
@@ -141,13 +146,12 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **consumerKey** | **str**|  | 
- **sessionToken** | **str**|  | 
- **instrumentTokens** | **str**| Instrument token of the scrip for which quote | 
-
+ **instrument_token** | **str**| Instrument token of the scrip for which quote | 
+ **quote_type** | **str** |  quote_type is "DEPTH" if not provided it will call instrument details of QuoteAPI | [optional]
+ 
 ### Return type
 
-[**MarketDetailsQuote**](MarketDetailsQuote.md)
+**object**
 
 ### Authorization
 
@@ -173,7 +177,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_ohlc_quote**
-> list[OHLCQuote] get_ohlc_quote(consumerKey, sessionToken, instrumentTokens)
+> object get_ohlc_quote(instrument_token, quote_type)
 
 Get OHLC quote
 
@@ -183,26 +187,29 @@ Returns the OHLC quote details for an array of scrips
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client.rest import ApiException
+from openapi_client import ks_api
+
+client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
+                consumer_key="consumer_key", app_id="app_id", ip="IP")
+				
+#First initialize session and generate session token
 try:
 	# Get OHLC details
-	instrumentTokens=110
-    api_response=openapi_client.get_ohlc_quote(instrumentTokens)
-	print(api_response)
-except ApiException as e:
+    client.get_quote(instrument_token=110, quote_type = "OHLC")
+except Exception as e:
 	print("Exception when calling QuoteApi->get_ohlc_quote: %s\n" % e)```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **consumerKey** | **str**|  | 
- **sessionToken** | **str**|  | 
- **instrumentTokens** | **str**| Instrument token of the scrip for which quote | 
+ **instrument_token** | **str**| Instrument token of the scrip for which quote | 
+ **quote_type** | **str** |  quote_type is "OHLC" if not provided it will call instrument details of QuoteAPI | [optional]
+  
 
 ### Return type
 
-[**list[OHLCQuote]**](OHLCQuote.md)
+**object**
 
 ### Authorization
 
