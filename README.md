@@ -129,36 +129,6 @@ Class | Method | HTTP request | Description
 *SuperMultipleOrderApi* | [**modify_sm_order**](docs/SuperMultipleOrderApi.md#modify_sm_order) | **PUT** /orders/1.0/order/supermultiple | Modify an existing super multiple order
 *SuperMultipleOrderApi* | [**place_new_sm_order**](docs/SuperMultipleOrderApi.md#place_new_sm_order) | **POST** /orders/1.0/order/supermultiple | Place a New Super Multiple order
 
-
-## Documentation For Models
-
- - [Bracketmodify](docs/Bracketmodify.md)
- - [Bracketplace](docs/Bracketplace.md)
- - [Codmodify](docs/Codmodify.md)
- - [Codplace](docs/Codplace.md)
- - [Ctdmodify](docs/Ctdmodify.md)
- - [Ctdplace](docs/Ctdplace.md)
- - [ExistingMTFOrder](docs/ExistingMTFOrder.md)
- - [ExistingNormalOrder](docs/ExistingNormalOrder.md)
- - [ExistingOrder](docs/ExistingOrder.md)
- - [ExistingSMOrder](docs/ExistingSMOrder.md)
- - [ExistingSOROrder](docs/ExistingSOROrder.md)
- - [Fault](docs/Fault.md)
- - [Gtcmodify](docs/Gtcmodify.md)
- - [Gtcplace](docs/Gtcplace.md)
- - [NewMTFOrder](docs/NewMTFOrder.md)
- - [NewNormalOrder](docs/NewNormalOrder.md)
- - [NewOrder](docs/NewOrder.md)
- - [NewSMOrder](docs/NewSMOrder.md)
- - [NewSOROrder](docs/NewSOROrder.md)
- - [OrderInfo](docs/OrderInfo.md)
- - [ReqMargin](docs/ReqMargin.md)
- - [Tslomodify](docs/Tslomodify.md)
- - [Tsloplace](docs/Tsloplace.md)
- - [UserCredentials](docs/UserCredentials.md)
- - [UserDetails](docs/UserDetails.md)
-
-
 ## Documentation For Authorization
 
 
