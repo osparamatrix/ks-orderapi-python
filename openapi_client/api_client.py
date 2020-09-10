@@ -257,7 +257,7 @@ class ApiClient(object):
         # fetch data from response object
         data = json.loads(response.data)
         if data.get("fault"):
-            api_exception = ApiException(http_resp=response)
+            api_exception = ApiException(status = response.status, reason = response.reason, body = response.data)
             api_exception.status=data.get('fault').get('code')
             api_exception.reason=data.get('fault').get('message')
             api_exception.body = data.get('fault').get('description')
