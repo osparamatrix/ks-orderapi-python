@@ -2,8 +2,7 @@
 No description provided
 
 - API version: 1.0.1
-- Package version: 1.0.1
-- Build package: com.paramatrix.ks.codegen.PythonKsGenerator
+- Package version: 1.0.10
 
 ## Requirements.
 
@@ -73,8 +72,8 @@ client.get_positions(position_type = "TODAYS")
 
 # Get Margin required
 order_info = [
-    {"instrumentToken": 771, "quantity": 1, "price": 1300, "amount": 0, "triggerPrice": 1190},
-    {"instrumentToken": 374, "quantity": 1, "price": 1200, "amount": 0, "triggerPrice": 1150}
+    {"instrument_token": 771, "quantity": 1, "price": 1300, "amount": 0, "trigger_price": 1190},
+    {"instrument_token": 374, "quantity": 1, "price": 1200, "amount": 0, "trigger_price": 1150}
 ]
 client.margin_required(transaction_type="BUY",order_info=order_info)
 
