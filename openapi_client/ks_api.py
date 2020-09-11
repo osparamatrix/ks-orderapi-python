@@ -68,13 +68,10 @@ class KSTradeApi():
         else:
             raise ApiValueError("Please invoke 'session_login_api' function first")
 
-    def logout(self, userid):
-        if userid:
-            logout  =  openapi_client.SessionApi(self.api_client).session_logout(self.session_token,self.consumer_key,
-                            self.ip, self.app_id, self.userid)
-            return logout
-        else:
-            raise ApiValueError("Invalid user id supplied")
+    def logout(self):
+        logout  =  openapi_client.SessionApi(self.api_client).session_logout(self.session_token,self.consumer_key,\
+						self.ip, self.app_id, self.userid)
+        return logout
 
 #-------------------------------------------------------------------------------
 # Common methods for placing order
@@ -234,7 +231,7 @@ class KSTradeApi():
 #-----------------------Margins------------------------
 
     def margin_required(self, transaction_type, order_info):
-        req_margin  =  ReqMargin(transactionType = transaction_type, orderInfo = order_info)
+        req_margin  =  ReqMargin(transactionType = transaction_type, orderInfo = self.convertArray(order_info))
         if not isinstance(req_margin, ReqMargin):
             raise ApiValueError("ReqMargin with type ",type(req_margin)," is not valid.")
         margin_required  =  openapi_client.MarginApi(self.api_client).margin_required(self.consumer_key,self.session_token,
@@ -277,3 +274,23 @@ class KSTradeApi():
             elif(order.get("BSE")):
                 order = order.get("BSE")
         return str(order['orderId'])
+
+#-------- Convert Array and object snake_case keys to camelCase -----------
+    def convertObject(self, object):  
+        newObj={}
+        for key in object .keys():
+            new_key='';
+            for idx , word in enumerate(key.split('_')): 
+                if(idx==0):
+                    new_key = ''+str(word)
+                else:
+                    new_key=new_key+(word.title())
+            newObj[new_key] = object[key]
+            
+        return newObj
+ 
+    def convertArray(self, array): 
+        new_array = []
+        for obj in array:
+            new_array.append(self.convertObject(obj))
+        return new_array

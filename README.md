@@ -88,7 +88,7 @@ client.get_order_report()
 client.get_quote(instrument_token=110)
 
 #Terminate user's Session
-client.logout(userid = "")
+client.logout()
 
 ```
 ## Documentation for API Endpoints

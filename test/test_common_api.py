@@ -1,7 +1,7 @@
 import unittest
 import time
 
-import api
+from openapi_client import ks_api
 from openapi_client.exceptions import ApiException, ApiValueError
 from openapi_client.models import NewMTFOrder, NewNormalOrder, NewOrder, \
                         NewSMOrder, NewSOROrder, ExistingMTFOrder, ExistingNormalOrder, \
@@ -10,12 +10,12 @@ from openapi_client.settings import host, access_token, userid, \
                         consumer_key, app_id, password, access_code, ip
 
 class TestKSTradeApi(unittest.TestCase):
-    ks_trade_api = api.KSTradeApi(host=host, access_token=access_token, userid=userid, \
+    ks_trade_api = ks_api.KSTradeApi(host=host, access_token=access_token, userid=userid, \
                 consumer_key=consumer_key, app_id=app_id, ip="127.0.0.1", \
                 proxy_url="", proxy_user="", proxy_pass="")
 
     def test_00_session_login_api(self):
-        print(self.ks_trade_api.session_login_user(password=password))
+        print(self.ks_trade_api.login(password=password))
 
     def test_01_generate_session2_fa(self):
         time.sleep(1)
@@ -23,22 +23,22 @@ class TestKSTradeApi(unittest.TestCase):
 
 # ----------------Order--------------------
 
-    def test_02_place_order(self, instrumentToken=727, tag="string", transactionType="BUY",\
-                                variety="REGULAR", quantity=1, price=0, disclosedQuantity=0,\
-                                validity="GFD", triggerPrice=0, product="NORMAL",smartOrderRouting="string", order_type="O"):
+    def test_02_place_order(self, instrument_token=727, tag="string", transaction_type="BUY",\
+                                variety="REGULAR", quantity=1, price=0, disclosed_quantity=0,\
+                                validity="GFD", trigger_price=0, product="NORMAL",smart_order_routing="string", order_type="O"):
         print("\nPlacing order with ORDER type.")
         time.sleep(1)
         try:
-            placed_order = self.ks_trade_api.place_order(instrumentToken = instrumentToken, tag=tag, transactionType=transactionType,\
-                                    variety=variety, quantity=quantity, price=price, disclosedQuantity=disclosedQuantity,\
-                                    validity=validity, triggerPrice=triggerPrice, product=product,smartOrderRouting=smartOrderRouting, order_type="O")
+            placed_order = self.ks_trade_api.place_order(instrument_token = instrument_token, tag=tag, transaction_type=transaction_type,\
+                                    variety=variety, quantity=quantity, price=price, disclosed_quantity=disclosed_quantity,\
+                                    validity=validity, trigger_price=trigger_price, product=product,smart_order_routing=smart_order_routing, order_type="O")
             print("\tOrder placed successfully. \n: "+ str(placed_order))
 			
-            orderId=self.ks_trade_api.get_order_id(placed_order)
-            modified_order = self.ks_trade_api.modify_order(orderId=orderId, disclosedQuantity=0, price=0,\
-                                  quantity=1, triggerPrice=0, order_type="O")
+            order_id=self.ks_trade_api.get_order_id(placed_order)
+            modified_order = self.ks_trade_api.modify_order(order_id=order_id, disclosed_quantity=0, price=0,\
+                                  quantity=1, trigger_price=0, order_type="O")
             print("\tOrder modified successfully. \n: "+ str(modified_order))
-            cancelled_order= self.ks_trade_api.cancel_order(orderId, 'O')
+            cancelled_order= self.ks_trade_api.cancel_order(order_id, 'O')
             print("\tOrder cancelled successfully.\n" + str(cancelled_order))
         except ApiException as e:
             if e.status in (-1,-22):
@@ -49,22 +49,22 @@ class TestKSTradeApi(unittest.TestCase):
 
 # ----------------Normal Order--------------------
 
-    def test_03_place_normal_order(self, instrumentToken=727, tag="string", transactionType="BUY",\
-                        variety="REGULAR", quantity=1, price=0, disclosedQuantity=0,\
-                        validity="GFD", triggerPrice=0,  order_type="NO"):
+    def test_03_place_normal_order(self, instrument_token=727, tag="string", transaction_type="BUY",\
+                        variety="REGULAR", quantity=1, price=0, disclosed_quantity=0,\
+                        validity="GFD", trigger_price=0,  order_type="NO"):
         print("\nPlacing order with NORAML ORDER type.")
         time.sleep(1)
         try:
-            placed_order = self.ks_trade_api.place_order(instrumentToken=instrumentToken, tag=tag, transactionType=transactionType,\
-                        variety=variety, quantity=quantity, price=price, disclosedQuantity=disclosedQuantity,\
-                        validity=validity, triggerPrice=triggerPrice,  order_type="NO")
+            placed_order = self.ks_trade_api.place_order(instrument_token=instrument_token, tag=tag, transaction_type=transaction_type,\
+                        variety=variety, quantity=quantity, price=price, disclosed_quantity=disclosed_quantity,\
+                        validity=validity, trigger_price=trigger_price,  order_type="NO")
             print("\tOrder placed successfully. \n: "+ str(placed_order))
 			
-            orderId=self.ks_trade_api.get_order_id(placed_order)
-            modified_order = self.ks_trade_api.modify_order(orderId=orderId, disclosedQuantity=0, price=0,\
-            quantity=1, triggerPrice=0, order_type="NO")
+            order_id=self.ks_trade_api.get_order_id(placed_order)
+            modified_order = self.ks_trade_api.modify_order(order_id=order_id, disclosed_quantity=0, price=0,\
+            quantity=1, trigger_price=0, order_type="NO")
             print("\tOrder modified successfully.\n: "+ str(modified_order))
-            cancelled_order= self.ks_trade_api.cancel_order(orderId, 'NO')
+            cancelled_order= self.ks_trade_api.cancel_order(order_id, 'NO')
             print("\tOrder cancelled successfully.\n"+ str(cancelled_order))
         except ApiException as e:
             if e.status in (-1,-22):
@@ -74,22 +74,22 @@ class TestKSTradeApi(unittest.TestCase):
 
 # ----------------Multiple Order--------------------
 
-    def test_04_place_multiple_order(self, instrumentToken=727, tag="string", transactionType="BUY",\
-                    variety="REGULAR", quantity=3, price=0, disclosedQuantity=0, \
-                    validity="GFD", triggerPrice=1201, order_type="SMO"):
+    def test_04_place_multiple_order(self, instrument_token=727, tag="string", transaction_type="BUY",\
+                    variety="REGULAR", quantity=3, price=0, disclosed_quantity=0, \
+                    validity="GFD", trigger_price=1201, order_type="SMO"):
         print("\nPlacing order with MULTIPLE ORDER type.")
         time.sleep(1)
         try:
-            placed_order = self.ks_trade_api.place_order(instrumentToken=instrumentToken, tag=tag, transactionType=transactionType,\
-                    variety=variety, quantity=quantity, price=price, disclosedQuantity=disclosedQuantity, \
-                    validity=validity, triggerPrice=triggerPrice, order_type="SMO")
+            placed_order = self.ks_trade_api.place_order(instrument_token=instrument_token, tag=tag, transaction_type=transaction_type,\
+                    variety=variety, quantity=quantity, price=price, disclosed_quantity=disclosed_quantity, \
+                    validity=validity, trigger_price=trigger_price, order_type="SMO")
             print("\tOrder placed successfully. \n: "+str(placed_order))
 			
-            orderId=self.ks_trade_api.get_order_id(placed_order)
-            modified_order = self.ks_trade_api.modify_order(orderId=orderId, disclosedQuantity=0,\
-            price=0, quantity=1, triggerPrice=1000, order_type="SMO")
+            order_id=self.ks_trade_api.get_order_id(placed_order)
+            modified_order = self.ks_trade_api.modify_order(order_id=order_id, disclosed_quantity=0,\
+            price=0, quantity=1, trigger_price=1000, order_type="SMO")
             print("\tOrder modified successfully.\n: "+str(modified_order))
-            cancelled_order= self.ks_trade_api.cancel_order(orderId, 'SMO')
+            cancelled_order= self.ks_trade_api.cancel_order(order_id, 'SMO')
             print("\tOrder cancelled successfully.\n"+ str(cancelled_order))
         except ApiException as e:
             if e.status in (-1,-22):
@@ -100,20 +100,20 @@ class TestKSTradeApi(unittest.TestCase):
 
 # ----------------SOR Order--------------------
 
-    def test_05_place_sor_order(self, instrumentToken=727, tag="string", transactionType="BUY",\
+    def test_05_place_sor_order(self, instrument_token=727, tag="string", transaction_type="BUY",\
                     variety="REGULAR", quantity=1, price=0, validity="GFD", order_type="SORO"):
         print("\nPlacing order with SOR ORDER type")
         time.sleep(1)
         try:
-            placed_order = self.ks_trade_api.place_order(instrumentToken=instrumentToken, tag=tag, transactionType=transactionType,\
+            placed_order = self.ks_trade_api.place_order(instrument_token=instrument_token, tag=tag, transaction_type=transaction_type,\
                     variety=variety, quantity=quantity, price=price, validity=validity, order_type="SORO")
             print("\tOrder placed successfully.\n: "+ str(placed_order))
 			
-            orderId=self.ks_trade_api.get_order_id(placed_order)
-            modified_order = self.ks_trade_api.modify_order(orderId=orderId, quantity=12, price=1400, \
-                                            disclosedQuantity=10, triggerPrice=1280, order_type="SORO")
+            order_id=self.ks_trade_api.get_order_id(placed_order)
+            modified_order = self.ks_trade_api.modify_order(order_id=order_id, quantity=12, price=1400, \
+                                            disclosed_quantity=10, trigger_price=1280, order_type="SORO")
             print("\tOrder modified successfully.\n: "+ str(modified_order))
-            cancelled_order= self.ks_trade_api.cancel_order(orderId, 'SORO')
+            cancelled_order= self.ks_trade_api.cancel_order(order_id, 'SORO')
             print("\tOrder cancelled successfully.\n"+ str(cancelled_order))
         except ApiException as e:
             if e.status in (-1,-22):
@@ -124,22 +124,22 @@ class TestKSTradeApi(unittest.TestCase):
 
 # ----------------MTF Order--------------------
 
-    def test_06_place_mtf_order(self, instrumentToken=727, tag="string", transactionType="BUY",\
-                variety="REGULAR", quantity=1, price=0, disclosedQuantity=0, \
-                validity="GFD", triggerPrice=0, order_type="MTFO"):
+    def test_06_place_mtf_order(self, instrument_token=727, tag="string", transaction_type="BUY",\
+                variety="REGULAR", quantity=1, price=0, disclosed_quantity=0, \
+                validity="GFD", trigger_price=0, order_type="MTFO"):
         print("\nPlacing order with MTF ORDER type.")
         time.sleep(1)
         try:
-            placed_order = self.ks_trade_api.place_order( instrumentToken=instrumentToken, tag=tag, transactionType=transactionType,\
-                variety=variety, quantity=quantity, price=price, disclosedQuantity=disclosedQuantity, \
-                validity=validity, triggerPrice=triggerPrice, order_type="MTFO")
+            placed_order = self.ks_trade_api.place_order( instrument_token=instrument_token, tag=tag, transaction_type=transaction_type,\
+                variety=variety, quantity=quantity, price=price, disclosed_quantity=disclosed_quantity, \
+                validity=validity, trigger_price=trigger_price, order_type="MTFO")
             print("\tOrder placed successfully. \n: "+ str(placed_order))
 			
-            orderId=self.ks_trade_api.get_order_id(placed_order)
-            modified_order = self.ks_trade_api.modify_order(orderId=orderId, disclosedQuantity=1,\
-            price=0, quantity=1, triggerPrice=0, order_type="MTFO")
+            order_id=self.ks_trade_api.get_order_id(placed_order)
+            modified_order = self.ks_trade_api.modify_order(order_id=order_id, disclosed_quantity=1,\
+            price=0, quantity=1, trigger_price=0, order_type="MTFO")
             print("\tOrder modified successfully. \n: "+ str(modified_order))
-            cancelled_order= self.ks_trade_api.cancel_order(orderId, 'MTFO')
+            cancelled_order= self.ks_trade_api.cancel_order(order_id, 'MTFO')
             print("\tOrder cancelled successfully.\n"+ str(cancelled_order))
         except ApiException as e:
             if e.status in (-1,-22):
@@ -150,7 +150,7 @@ class TestKSTradeApi(unittest.TestCase):
 #----------------------- POSITION ------------------------
 
     def test_07_positions_today(self):
-        positions_today=self.ks_trade_api.get_positions('TODAY')
+        positions_today=self.ks_trade_api.get_positions('TODAYS')
         print("\nPosition Today",positions_today)
 
     def test_08_positions_open(self):
@@ -170,14 +170,14 @@ class TestKSTradeApi(unittest.TestCase):
 
 
     def test_11_get_order_report_by_order_id(self):
-        print("\nGenerating ORDER Report by orderId")
+        print("\nGenerating ORDER Report by order_id")
         time.sleep(1)
-        placed_order = self.ks_trade_api.place_order(instrumentToken=727, tag="string", transactionType="BUY",\
-                                variety="REGULAR", quantity=1, price=0, disclosedQuantity=0,\
-                                validity="GFD", triggerPrice=0, product="NORMAL",order_type="NO")
+        placed_order = self.ks_trade_api.place_order(instrument_token=727, tag="string", transaction_type="BUY",\
+                                variety="REGULAR", quantity=1, price=0, disclosed_quantity=0,\
+                                validity="GFD", trigger_price=0, product="NORMAL",order_type="NO")
         print("\tOrder placed "+ str(placed_order))
-        orderId=self.ks_trade_api.get_order_id(placed_order)
-        get_order_report_by_order_id = self.ks_trade_api.get_order_report(orderId)
+        order_id=self.ks_trade_api.get_order_id(placed_order)
+        get_order_report_by_order_id = self.ks_trade_api.get_order_report(order_id)
         if get_order_report_by_order_id:
             print("\tOrder report generated succesfully.\n")
 
@@ -190,53 +190,49 @@ class TestKSTradeApi(unittest.TestCase):
             print("\tTrade report genrated succesfully.\n")
 
     def test_13_get_trade_report_by_order_id(self):
-        print("\nGenerating TRADE Report by orderId")
+        print("\nGenerating TRADE Report by order_id")
         time.sleep(1)
-        placed_order = self.ks_trade_api.place_order(instrumentToken=727, tag="string", transactionType="BUY",\
-                                variety="REGULAR", quantity=1, price=0, disclosedQuantity=0,\
-                                validity="GFD", triggerPrice=0, product="NORMAL",order_type="NO")
+        placed_order = self.ks_trade_api.place_order(instrument_token=727, tag="string", transaction_type="BUY",\
+                                variety="REGULAR", quantity=1, price=0, disclosed_quantity=0,\
+                                validity="GFD", trigger_price=0, product="NORMAL",order_type="NO")
         print("\tOrder placed "+ str(placed_order))
-        orderId=self.ks_trade_api.get_order_id(placed_order)
-        get_trade_report_by_order_id = self.ks_trade_api.get_trade_report(orderId)
+        order_id=self.ks_trade_api.get_order_id(placed_order)
+        get_trade_report_by_order_id = self.ks_trade_api.get_trade_report(order_id)
         if get_trade_report_by_order_id:
             print("\tTrade report received succesfully.\n")
 
 #----------------------- Margin Required ------------------------
 
     def test_14_margin_required(self):
-        orderInfo = [
-            {"instrumentToken": 727, "quantity": 1, "price": 1300, "amount": 0, "triggerPrice": 1190},
-            {"instrumentToken": 1374, "quantity": 1, "price": 1200, "amount": 0, "triggerPrice": 1150}
+        order_info = [
+            {"instrument_token": 727, "quantity": 1, "price": 1300, "amount": 0, "trigger_price": 1190},
+            {"instrument_token": 1374, "quantity": 1, "price": 1200, "amount": 0, "trigger_price": 1150}
         ]
-        margin_required=self.ks_trade_api.margin_required(transactionType="BUY",orderInfo=orderInfo)
+        margin_required=self.ks_trade_api.margin_required(transaction_type="BUY",order_info=order_info)
         print("\nMargin required tested.")
 
 #----------------------- Quotes ------------------------
 
     def test_15_get_ltp_quote(self):
-        instrumentToken=110
-        quote=self.ks_trade_api.get_quote(instrumentToken, 'LTP')
-        print("Tested get_ltp_quote with ", quote)
+        quote=self.ks_trade_api.get_quote(instrument_token=110, quote_type = 'LTP')
+        print("\nTested get_ltp_quote with ", quote)
 
     def test_16_get_market_details_quote(self):
-        instrumentToken=110
-        quote=self.ks_trade_api.get_quote(instrumentToken, 'MARKET')
-        print("Tested get_market_details_quote with ", quote)
+        quote=self.ks_trade_api.get_quote(instrument_token=110, quote_type = 'DEPTH')
+        print("\nTested get_market_details_quote with ", quote)
 
     def test_17_get_ohlc_quote(self):
-        instrumentToken=110
-        quote=self.ks_trade_api.get_quote(instrumentToken, 'OHLC')
-        print("Tested get_ohlc_quote with ", quote)
+        quote=self.ks_trade_api.get_quote(instrument_token=110, quote_type = 'OHLC')
+        print("\nTested get_ohlc_quote with ", quote)
 
     def test_18_get_instruments_details(self):
-        instrumentToken=110
-        quote=self.ks_trade_api.get_quote(instrumentToken)
-        print("Tested get_instruments_details with ", quote)
+        quote=self.ks_trade_api.get_quote(instrument_token=110)
+        print("\nTested get_instruments_details with ", quote)
 
 #----------------------- LOGOUT ------------------------
 
     def test_19_logout(self):
-        logout=self.ks_trade_api.logout(userid)
+        logout=self.ks_trade_api.logout()
         print("\nLogout successful")
 
 

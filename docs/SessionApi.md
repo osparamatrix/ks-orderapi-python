@@ -176,7 +176,7 @@ object
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **session_logout**
-> object logout(userid)
+> object logout()
 
 Invalidate Session Token
 
@@ -196,16 +196,11 @@ client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
 
 try:
     # Invalidate Session Tsoken
-    openapi_client.session_logout()
+    client.logout()
 except Exception as e:
     print("Exception when calling SessionApi->session_logout: %s\n" % e)
 ```
 
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **userid** | **str**|  |
 
 ### Return type
 
