@@ -1,4 +1,4 @@
-# openapi_client.ReportsApi
+# ks_api_client.ReportsApi
 
 All URIs are relative to *https://sbx.kotaksecurities.com/apim*
 
@@ -21,7 +21,7 @@ Returns the specific order report
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client import ks_api
+from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
                 consumer_key="consumer_key", app_id="app_id", ip="IP")
@@ -78,7 +78,7 @@ Returns the full order report for a client.
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client import ks_api
+from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
                 consumer_key="consumer_key", app_id="app_id", ip="IP")
@@ -135,7 +135,7 @@ Returns the full trade report
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client import ks_api
+from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
                 consumer_key="consumer_key", app_id="app_id", ip="IP")
@@ -193,7 +193,7 @@ Returns the trade report for a orderId
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client import ks_api
+from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
                 consumer_key="consumer_key", app_id="app_id", ip="IP")

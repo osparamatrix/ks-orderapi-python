@@ -1,4 +1,4 @@
-# openapi_client.MarginTradingApi
+# ks_api_client.MarginTradingApi
 
 All URIs are relative to *https://sbx.kotaksecurities.com/apim*
 
@@ -18,7 +18,7 @@ Cancel an order
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client import ks_api
+from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
                 consumer_key="consumer_key", app_id="app_id", ip="IP")
@@ -75,7 +75,7 @@ Modify an existing MTF order
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client import ks_api
+from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
                 consumer_key="consumer_key", app_id="app_id", ip="IP")
@@ -138,7 +138,7 @@ Place a New MTF order
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client import ks_api
+from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
                 consumer_key="consumer_key", app_id="app_id", ip="IP")

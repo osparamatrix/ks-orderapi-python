@@ -1,4 +1,4 @@
-# openapi_client.SessionApi
+# ks_api_client.SessionApi
 
 All URIs are relative to *https://sbx.kotaksecurities.com/apim*
 
@@ -22,7 +22,7 @@ API to initiate trading session for a UserId
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client import ks_api
+from ks_api_client import ks_api
 
 #the session initializes when following constructor is called
 client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
@@ -74,7 +74,7 @@ Authenticate userid and password to gnerrated one time token
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
 
-from openapi_client import ks_api
+from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
                 consumer_key="consumer_key", app_id="app_id", ip="IP")
@@ -131,7 +131,7 @@ API to generate final session for user based on one time token
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
 
-from openapi_client import ks_api
+from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
                 consumer_key="consumer_key", app_id="app_id", ip="IP")
@@ -187,7 +187,7 @@ API to invalidate final session for user.
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
 
-from openapi_client import ks_api
+from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
                 consumer_key="consumer_key", app_id="app_id", ip="IP")

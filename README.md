@@ -20,7 +20,7 @@ pip install git+https://github.com/osparamatrix/ks-orderapi-python.git
 
 Then import the package:
 ```python
-import openapi_client
+import ks_api_client
 ```
 
 ### Setuptools
@@ -34,7 +34,7 @@ python setup.py install --user
 
 Then import the package:
 ```python
-import openapi_client
+import ks_api_client
 ```
 
 ## Getting Started
@@ -42,7 +42,7 @@ import openapi_client
 Please follow the [installation procedure](#installation--usage) and then run the following:
 
 ```python
-from openapi_client import ks_api 
+from ks_api_client import ks_api 
 
 # Defining the host is optional and defaults to https://sbx.kotaksecurities.com/apim
 # See configuration.py for a list of all supported configuration parameters.
@@ -72,8 +72,8 @@ client.get_positions(position_type = "TODAYS")
 
 # Get Margin required
 order_info = [
-    {"instrument_token": 771, "quantity": 1, "price": 1300, "amount": 0, "trigger_price": 1190},
-    {"instrument_token": 374, "quantity": 1, "price": 1200, "amount": 0, "trigger_price": 1150}
+    {"instrument_token": 727, "quantity": 1, "price": 1300, "amount": 0, "trigger_price": 1190},
+    {"instrument_token": 1374, "quantity": 1, "price": 1200, "amount": 0, "trigger_price": 1150}
 ]
 client.margin_required(transaction_type="BUY",order_info=order_info)
 

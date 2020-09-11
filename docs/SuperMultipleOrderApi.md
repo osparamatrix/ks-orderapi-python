@@ -1,4 +1,4 @@
-# openapi_client.SuperMultipleOrderApi
+# ks_api_client.SuperMultipleOrderApi
 
 All URIs are relative to *https://sbx.kotaksecurities.com/apim*
 
@@ -18,7 +18,7 @@ Place a New Super Multiple order
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client import ks_api
+from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
                 consumer_key="consumer_key", app_id="app_id", ip="IP")
@@ -86,7 +86,7 @@ Modify an existing super multiple order
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client import ks_api
+from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
                 consumer_key="consumer_key", app_id="app_id", ip="IP")
@@ -148,7 +148,7 @@ Cancel an Super Multiple order
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client import ks_api
+from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
                 consumer_key="consumer_key", app_id="app_id", ip="IP")

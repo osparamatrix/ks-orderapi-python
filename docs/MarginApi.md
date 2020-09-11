@@ -1,4 +1,4 @@
-# openapi_client.MarginApi
+# ks_api_client.MarginApi
 
 All URIs are relative to *https://sbx.kotaksecurities.com/apim*
 
@@ -18,7 +18,7 @@ Returns margin required for Equity, Super Multiple & MTF Order.
 
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
-from openapi_client import ks_api
+from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
                 consumer_key="consumer_key", app_id="app_id", ip="IP")
@@ -31,7 +31,7 @@ try:
         {"instrumentToken": 771, "quantity": 1, "price": 1300, "amount": 0, "triggerPrice": 1190},
         {"instrumentToken": 374, "quantity": 1, "price": 1200, "amount": 0, "triggerPrice": 1150}
         ]
-    api_response = openapi_client.margin_required(transaction_type="BUY",order_info=order_info)
+    api_response = ks_api_client.margin_required(transaction_type="BUY",order_info=order_info)
     print(api_response)
 except ApiException as e:
     print("Exception when calling MarginApi->margin_required: %s\n" % e)

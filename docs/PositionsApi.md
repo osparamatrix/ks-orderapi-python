@@ -1,4 +1,4 @@
-# openapi_client.PositionsApi
+# ks_api_client.PositionsApi
 
 All URIs are relative to *https://sbx.kotaksecurities.com/apim*
 
@@ -25,7 +25,7 @@ Gets Open Position of a client.
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
 
-from openapi_client import ks_api
+from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
                 consumer_key="consumer_key", app_id="app_id", ip="IP")
@@ -34,8 +34,7 @@ client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
 
 try:
     # Get's Open position.
-    api_response = client.get_positions(position_type = "OPEN")
-    print(api_response)
+    client.get_positions(position_type = "OPEN")
 except Exception as e:
     print("Exception when calling PositionsApi->positions_open: %s\n" % e)
 ```
@@ -91,7 +90,7 @@ Gets Stocks position eligible for sell from existing for a client.
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
 
-from openapi_client import ks_api
+from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
                 consumer_key="consumer_key", app_id="app_id", ip="IP")
@@ -100,8 +99,7 @@ client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
 
 try:
     # Get's Sell from Existing stocks.
-    api_response = openapi_client.get_positions(position_type = "STOCKS")
-    print(api_response)
+    client.get_positions(position_type = "STOCKS")
 except Exception as e:
     print("Exception when calling PositionsApi->positions_stocks: %s\n" % e)
 ```
@@ -156,7 +154,7 @@ Gets Today's Position of a client.
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
 
-from openapi_client import ks_api
+from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
                 consumer_key="consumer_key", app_id="app_id", ip="IP")
@@ -164,8 +162,7 @@ client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
 #First initialize session and generate session token
 try:
     # Get's Todays position.
-    openapi_client.get_positions(position_type = "TODAYS")
-    print(api_response)
+    client.get_positions(position_type = "TODAYS")
 except Exception as e:
     print("Exception when calling PositionsApi->positions_today: %s\n" % e)
 ```
