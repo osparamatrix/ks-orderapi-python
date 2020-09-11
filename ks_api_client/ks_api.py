@@ -117,7 +117,7 @@ class KSTradeApi():
             place_order  =  ks_api_client.MarginTradingApi(self.api_client).place_new_mtf_order(self.consumer_key, \
                             self.session_token, order)
         else:
-            raise TypeError("Provided order type is invalid.")
+            raise TypeError("Provided order type is invalid, use either of O(Order), NO(Normal Order), SMO(Super Multiple Order), SORO(Smart Order Routing) or MTFO(Margin Tading Facility)")
 
         return place_order
 
@@ -158,7 +158,7 @@ class KSTradeApi():
             modified_order_res  =  ks_api_client.MarginTradingApi(self.api_client).modify_mtf_order(self.consumer_key, \
                             self.session_token, modify_order)
         else:
-            raise TypeError("Provided order type is invalid.")
+            raise TypeError("Provided order type is invalid, use either of O(Order), NO(Normal Order), SMO(Super Multiple Order), SORO(Smart Order Routing) or MTFO(Margin Tading Facility)")
 
         return modified_order_res
 
@@ -189,7 +189,7 @@ class KSTradeApi():
             order  =  ks_api_client.MarginTradingApi(self.api_client).cancel_mtf_order(self.consumer_key, \
                             self.session_token, order)
         else:
-            raise TypeError("Provided order type is invalid.")
+            raise TypeError("Provided order type is invalid, use either of O(Order), NO(Normal Order), SMO(Super Multiple Order), SORO(Smart Order Routing) or MTFO(Margin Tading Facility)")
 
         return order
 
@@ -203,7 +203,7 @@ class KSTradeApi():
         elif position_type  ==  'STOCKS':
             positions_res = ks_api_client.PositionsApi(self.api_client).positions_stocks(self.consumer_key,self.session_token)
         else:
-            raise TypeError("Provided position type is invalid.")
+            raise TypeError("Provided position type is invalid, use either of TODAYS, OPEN or STOCKS")
         return positions_res
 
 #---------------------ORDERS REPORTS----------------------------
@@ -254,7 +254,7 @@ class KSTradeApi():
             quote  =  ks_api_client.QuoteApi(self.api_client).get_ohlc_quote(self.consumer_key, \
                 self.session_token, instrument_token)
         else:
-            raise TypeError("Provided quote type is invalid.")
+            raise TypeError("Provided quote type is invalid, use either of LTP, DEPTH or OHLC")
         return quote
 
 #-----------------------Get Order Id-------------

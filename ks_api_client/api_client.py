@@ -260,7 +260,6 @@ class ApiClient(object):
             api_exception = ApiException(status = response.status, reason = response.reason, body = response.data)
             api_exception.status=data.get('fault').get('code')
             api_exception.reason=data.get('fault').get('message')
-            api_exception.body = data.get('fault').get('description')
             raise api_exception
 
         return self.__deserialize(data, response_type)

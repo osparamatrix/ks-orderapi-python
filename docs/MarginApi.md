@@ -33,7 +33,7 @@ try:
         ]
     api_response = ks_api_client.margin_required(transaction_type="BUY",order_info=order_info)
     print(api_response)
-except ApiException as e:
+except Exception as e:
     print("Exception when calling MarginApi->margin_required: %s\n" % e)
 ```
 
