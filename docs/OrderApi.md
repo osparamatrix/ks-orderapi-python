@@ -157,7 +157,8 @@ except Exception as e:
 
 ### Parameters
 
-Name | Type | Description  | Notes
+Name | Type | Description  | Notes 
+------------- | ------------- | ------------- | -------------
 **instrument_token** | **int** | Instrument token of the scrip to be traded |
 **transaction_type** | **str** | Transaction Type - BUY or SELL |
 **quantity** | **int** | Order quantity - specified in same unit as quoted in market depth |
