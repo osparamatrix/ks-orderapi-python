@@ -42,34 +42,25 @@ import ks_api_client
 Please follow the [installation procedure](#installation--usage) and then run the following:
 
 ```python
-from ks_api_client import ks_api 
-
+from ks_api_client import ks_api
 # Defining the host is optional and defaults to https://sbx.kotaksecurities.com/apim
 # See configuration.py for a list of all supported configuration parameters.
 client = ks_api.KSTradeApi(access_token = "", userid = "", \
                               consumer_key = "", app_id = "", ip = "127.0.0.1")
-
 # Get session for user
 client.login(password = "")
-
 #Generated session token
 client.generate_session2_fa(access_code = "")
-
 # Place an order
-client.place_order(instrument_token = 727, tag = "string", transaction_type = "BUY",\
-                        variety = "REGULAR", quantity = 1, price = 0, disclosed_quantity = 0,\
-                        validity = "GFD", trigger_price = 0,order_type = "NO")
-   
+client.place_order(order_type = "NO", instrument_token = 727, transaction_type = "BUY",\
+                        quantity = 1, price = 0, tag = "string", validity = "GFD", variety = "REGULAR",\
+						disclosed_quantity = 0, trigger_price = 0)
 # Modify an order
-client.modify_order(order_id = "", disclosed_quantity = 0, price = 0,\
-           quantity=1, trigger_price=0)
-
+client.modify_order(order_id = "", price = 0, quantity=1, disclosed_quantity = 0, trigger_price=0)
 # Cancel an order
 client.cancel_order(order_id = "")
-
 # Get Positions
 client.get_positions(position_type = "TODAYS")
-
 # Get Margin required
 order_info = [
     {"instrument_token": 727, "quantity": 1, "price": 1300, "amount": 0, "trigger_price": 1190},
@@ -80,7 +71,7 @@ client.margin_required(transaction_type="BUY",order_info=order_info)
 # Get Report Orders for order id
 client.get_order_report(order_id="")
 
-# Get Report Orders 
+# Get Report Orders
 client.get_order_report()
 
 # Get Quote details
@@ -88,7 +79,6 @@ client.get_quote(instrument_token=110)
 
 #Terminate user's Session
 client.logout()
-
 ```
 ## Documentation for API Endpoints
 
