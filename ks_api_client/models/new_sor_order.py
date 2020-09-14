@@ -26,6 +26,8 @@ class NewSOROrder(object):
         'price': 'float',
         'validity': 'str',
         'variety': 'str',
+        'disclosedQuantity': 'int',
+        'triggerPrice': 'float',
         'tag': 'str'
     }
 
@@ -36,10 +38,12 @@ class NewSOROrder(object):
         'price': 'price',
         'validity': 'validity',
         'variety': 'variety',
+        'disclosedQuantity': 'disclosedQuantity',
+        'triggerPrice': 'triggerPrice',
         'tag': 'tag'
     }
 
-    def __init__(self, instrumentToken=None, transactionType=None, quantity=None, price=None, validity=None, variety=None, tag=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, instrumentToken=None, transactionType=None, quantity=None, price=None, validity=None, variety=None, disclosedQuantity=None, triggerPrice=None, tag=None, local_vars_configuration=None):  # noqa: E501
         """NewSOROrder - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
@@ -51,6 +55,8 @@ class NewSOROrder(object):
         self._price = None
         self._validity = None
         self._variety = None
+        self._disclosedQuantity = None
+        self._triggerPrice = None
         self._tag = None
         self.discriminator = None
 
@@ -66,6 +72,10 @@ class NewSOROrder(object):
             self.validity = validity
         if variety is not None:
             self.variety = variety
+        if disclosedQuantity is not None:
+            self.disclosedQuantity = disclosedQuantity
+        if triggerPrice is not None:
+            self.triggerPrice = triggerPrice
         if tag is not None:
             self.tag = tag
 
@@ -224,6 +234,52 @@ class NewSOROrder(object):
             )
 
         self._variety = variety
+
+    @property
+    def disclosedQuantity(self):
+        """Gets the disclosedQuantity of this NewSOROrder.  # noqa: E501
+
+        Quantity to be disclosed in order  # noqa: E501
+
+        :return: The disclosedQuantity of this NewSOROrder.  # noqa: E501
+        :rtype: int
+        """
+        return self._disclosedQuantity
+
+    @disclosedQuantity.setter
+    def disclosedQuantity(self, disclosedQuantity):
+        """Sets the disclosedQuantity of this NewSOROrder.
+
+        Quantity to be disclosed in order  # noqa: E501
+
+        :param disclosedQuantity: The disclosedQuantity of this NewSOROrder.  # noqa: E501
+        :type disclosedQuantity: int
+        """
+
+        self._disclosedQuantity = disclosedQuantity
+
+    @property
+    def triggerPrice(self):
+        """Gets the triggerPrice of this NewSOROrder.  # noqa: E501
+
+        Trigger price, required for stoploss or supermultiple order  # noqa: E501
+
+        :return: The triggerPrice of this NewSOROrder.  # noqa: E501
+        :rtype: float
+        """
+        return self._triggerPrice
+
+    @triggerPrice.setter
+    def triggerPrice(self, triggerPrice):
+        """Sets the triggerPrice of this NewSOROrder.
+
+        Trigger price, required for stoploss or supermultiple order  # noqa: E501
+
+        :param triggerPrice: The triggerPrice of this NewSOROrder.  # noqa: E501
+        :type triggerPrice: float
+        """
+
+        self._triggerPrice = triggerPrice
 
     @property
     def tag(self):

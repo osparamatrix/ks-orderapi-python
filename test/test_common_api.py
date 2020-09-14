@@ -98,12 +98,14 @@ class TestKSTradeApi(unittest.TestCase):
 # ----------------SOR Order--------------------
 
     def test_05_place_sor_order(self, instrument_token=727, tag="string", transaction_type="BUY",\
-                    variety="REGULAR", quantity=1, price=0, validity="GFD", order_type="SORO"):
+                    variety="REGULAR", quantity=1, price=0, validity="GFD",disclosed_quantity=0, \
+					trigger_price=0, order_type="SORO"):
         print("\nPlacing order with SOR ORDER type")
         time.sleep(1)
         try:
             placed_order = self.ks_trade_api.place_order("SORO", instrument_token, transaction_type,\
-                quantity, price, tag, validity, variety)
+                quantity, price, tag, validity, variety, disclosed_quantity=disclosed_quantity, \
+                 trigger_price=trigger_price)
             print("\tOrder placed successfully.\n: "+ str(placed_order))
 			
             order_id=self.ks_trade_api.get_order_id(placed_order)

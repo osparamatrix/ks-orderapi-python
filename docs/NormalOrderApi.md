@@ -97,8 +97,8 @@ Name | Type | Description  | Notes
 **order_id** | **str** | Order ID of the order to be modified | 
 **quantity** | **int** | Order quantity - specified in same unit as quoted in market depth |
 **price** | **float** | Order Price, non zero positive for limit order and zero for market order | 
-**disclosed_quantity** | **int** | Quantity to be disclosed in order |
-**trigger_price** | **float** | Trigger price, required for stoploss or supermultiple order |
+**disclosed_quantity** | **int** | Quantity to be disclosed in order | [optional] 
+**trigger_price** | **float** | Trigger price, required for stoploss or supermultiple order | [optional] 
 **order_type** | **str**| For NormalOrderApi, order_type is "NO" if not provided it will call modify order of OrderApi | [optional ]
 
 ### Return type
@@ -164,8 +164,8 @@ Name | Type | Description  | Notes
 **price** | **float** | Order Price, non zero positive for limit order and zero for market order |
 **validity** | **str** | Validity of the order - GFD, IOC etc | [optional] 
 **variety** | **str** | Variety of the order - REGULAR, AMO, SQUAREOFF - for Super Multiple Orders etc | [optional] 
-**disclosed_quantity** | **int** | Quantity to be disclosed in order | 
-**trigger_price** | **float** | Trigger price, required for stoploss or supermultiple order | 
+**disclosed_quantity** | **int** | Quantity to be disclosed in order | [optional] 
+**trigger_price** | **float** | Trigger price, required for stoploss or supermultiple order | [optional] 
 **tag** | **str** | Tag for this order | [optional] 
 **order_type** | **str**|  | For NormalOrderApi, order_type is "NO"
 

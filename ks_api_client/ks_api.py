@@ -106,7 +106,7 @@ class KSTradeApi():
                             self.session_token, order)
         elif order_type  ==  'SORO':
             order  =  NewSOROrder( instrumentToken = instrument_token, tag = tag, transactionType = transaction_type,\
-                    variety = variety, quantity = quantity, price = price, validity = validity)
+                    variety = variety, quantity = quantity, price = price, validity = validity, disclosedQuantity = disclosed_quantity,triggerPrice = trigger_price )
             place_order  =  ks_api_client.SmartOrderRoutingApi(self.api_client).place_new_sor_order(self.consumer_key,\
                             self.session_token, order)
         elif order_type  ==  'MTFO':

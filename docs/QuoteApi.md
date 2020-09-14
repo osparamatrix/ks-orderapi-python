@@ -198,7 +198,7 @@ try:
     client.get_quote(instrument_token=110, quote_type = "OHLC")
 except Exception as e:
 	print("Exception when calling QuoteApi->get_ohlc_quote: %s\n" % e)
-
+	
 ```
 
 ### Parameters
