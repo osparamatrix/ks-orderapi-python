@@ -1,8 +1,8 @@
-# openapi-client
+# ks_api_client
 No description provided
 
 - API version: 1.0.1
-- Package version: 1.0.10
+- Package version: 1.0.13
 
 ## Requirements.
 
