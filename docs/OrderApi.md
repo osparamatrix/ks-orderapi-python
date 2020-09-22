@@ -9,7 +9,7 @@ Method | Description
 [**cancel_order**](OrderApi.md#cancel_order) | Cancel an order
 
 # **place_new_order**
-> object place_order(order_type, instrument_token, transaction_type, quantity, price, tag , validity , variety , disclosed_quantity , trigger_price, product , smart_order_routing )
+> object place_order(order_type, instrument_token, transaction_type, quantity, price, disclosed_quantity , trigger_price, tag , validity , variety , product , smart_order_routing )
 
 Place a New order
 
@@ -20,8 +20,7 @@ Place a New order
 from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token = "access_token", userid = "userid", \
-                 consumer_key = "consumer_key", ip = "IP", app_id = "app_id", host = "host",\
-                 proxy_url = "proxy_url", proxy_user = "proxy_user", proxy_pass = "proxy_pass")
+                         consumer_key = "consumer_key", ip = "IP", app_id = "app_id")
 
 #First initialize session and generate session token
 
@@ -88,8 +87,7 @@ Modify an existing order
 from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token = "access_token", userid = "userid", \
-                 consumer_key = "consumer_key", ip = "IP", app_id = "app_id", host = "host",\
-                 proxy_url = "proxy_url", proxy_user = "proxy_user", proxy_pass = "proxy_pass")
+                         consumer_key = "consumer_key", ip = "IP", app_id = "app_id")
 
 #First initialize session and generate session token
 
@@ -149,8 +147,7 @@ Cancel an order
 from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token = "access_token", userid = "userid", \
-                 consumer_key = "consumer_key", ip = "IP", app_id = "app_id", host = "host",\
-                 proxy_url = "proxy_url", proxy_user = "proxy_user", proxy_pass = "proxy_pass")
+                         consumer_key = "consumer_key", ip = "IP", app_id = "app_id")
 
 #First initialize session and generate session token
 
