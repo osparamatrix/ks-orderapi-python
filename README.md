@@ -45,9 +45,8 @@ Please follow the [installation procedure](#installation--usage) and then run th
 from ks_api_client import ks_api
 # Defining the host is optional and defaults to https://sbx.kotaksecurities.com/apim
 # See configuration.py for a list of all supported configuration parameters.
-client = ks_api.KSTradeApi(host = "https://sbx.kotaksecurities.com/apim",access_token = "", \
-                     userid = "", consumer_key = "",  app_id = "", ip = "127.0.0.1",\
-                     proxy_url="", proxy_user="", proxy_pass="")
+client = ks_api.KSTradeApi(access_token = "", userid = "", \
+                consumer_key = "", ip = "127.0.0.1", app_id = "")
 					 
 # Get session for user
 client.login(password = "")
