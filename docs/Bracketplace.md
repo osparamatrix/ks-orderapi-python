@@ -9,6 +9,6 @@ Name | Type | Description | Notes
 **bookProfit** | **float** | Book Profit Price of the order | [optional] 
 **bookDisclosedQty** | **int** | Quantity to be disclosed in bracket order | [optional] 
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

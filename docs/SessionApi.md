@@ -2,51 +2,52 @@
 
 All URIs are relative to *https://sbx.kotaksecurities.com/apim*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**ks_api.KSTradeApi**](SessionApi.md#session_init) | **GET** /session/1.0/session/init | Initialise Session
-[**login**](SessionApi.md#login_with_user_id) | **POST** /session/1.0/session/login/userid | Login using Userid
-[**generate_session2_fa**](SessionApi.md#generate_session2_fa) | **POST** /session/1.0/session/2FA/accesscode | Generate final Session Token
-[**logout**](SessionApi.md#session_logout) | **DELETE** /session/1.0/session/logout | Invalidate Session Token
+Method | Description
+------------- | -------------
+[**ks_api.KSTradeApi**](SessionApi.md#session_init) | Initialise Session
+[**login**](SessionApi.md#login) | Login using Userid
+[**session_2fa**](SessionApi.md#session_2fa) | Generate final Session Token
+[**logout**](SessionApi.md#logout) | Invalidate Session Token
 
 
 # **session_init**
-> ks_api.KSTradeApi(access_token="access_token", userid="userid", \
-                consumer_key="consumer_key", app_id="app_id", ip="IP")
+> ks_api.KSTradeApi(access_token, userid, consumer_key, ip, app_id, host, proxy_url, proxy_user, proxy_pass )
 
 Initialise Session
 
-API to initiate trading session for a UserId
+API to initiate trading session for a User.
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
 from ks_api_client import ks_api
 
 #the session initializes when following constructor is called
-client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
-                consumer_key="consumer_key", app_id="app_id", ip="IP")
+client = ks_api.KSTradeApi(access_token = "access_token", userid = "userid", \
+                 consumer_key = "consumer_key", ip = "IP", app_id = "app_id", host = "host",\
+                 proxy_url = "proxy_url", proxy_user = "proxy_user", proxy_pass = "proxy_pass")
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **access_token** | **str**|  | 
  **userid** | **str**|  |
  **consumer_key** | **str**|  |
  **ip** | **str**|  |
  **app_id** | **str**|  |
- **access_token** | **str**|  |
+ **host** | **str**| Trade Api Host URL | [optional]
+ **proxy_url** | **str**| Proxy url  |  [optional]
+ **proxy_user** | **str**| Proxy user's Username | [optional]
+ **proxy_pass** | **str**| Proxy user's Password | [optional]
+  
 
 
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details
@@ -60,30 +61,31 @@ Name | Type | Description  | Notes
 **503** | Trade API service is unavailable |  -  |
 **504** | Gateway timeout, trade API is unreachable |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
-# **login_with_user_id**
+# **login**
 > object login(password)
 
 Login using Userid
 
-Authenticate userid and password to gnerrated one time token
+Authenticate userid and password to generate one time token.
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
 
 from ks_api_client import ks_api
 
-client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
-                consumer_key="consumer_key", app_id="app_id", ip="IP")
+client = ks_api.KSTradeApi(access_token = "access_token", userid = "userid", \
+                 consumer_key = "consumer_key", ip = "IP", app_id = "app_id", host = "host",\
+                 proxy_url = "proxy_url", proxy_user = "proxy_user", proxy_pass = "proxy_pass")
 
 try:
     # Login using password
-    client.login(password)
+    client.login(password = "password")
 except Exception as e:
-    print("Exception when calling SessionApi->login_with_user_id: %s\n" % e)
+    print("Exception when calling SessionApi->login: %s\n" % e)
 ```
 
 ### Parameters
@@ -96,9 +98,6 @@ Name | Type | Description  | Notes
 
 object
 
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -116,31 +115,35 @@ object
 **503** | Trade API service is unavailable |  -  |
 **504** | Gateway timeout, trade API is unreachable |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
-# **generate_session2_fa**
-> object generate_session2_fa(access_code)
+# **session_2fa**
+> object session_2fa(access_code)
 
 Generate final Session Token
 
-API to generate final session for user based on one time token
+API to generate final session for user based on one time token.
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
 
 from ks_api_client import ks_api
 
-client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
-                consumer_key="consumer_key", app_id="app_id", ip="IP")
+client = ks_api.KSTradeApi(access_token = "access_token", userid = "userid", \
+                 consumer_key = "consumer_key", ip = "IP", app_id = "app_id", host = "host",\
+                 proxy_url = "proxy_url", proxy_user = "proxy_user", proxy_pass = "proxy_pass")
 				
 try:
+    # Login using password
+    client.login(password = "password")
+    
     # Generate final Session Token
-    client.generate_session2_fa(access_code)
+    client.session_2fa(access_code = "access_code")
 except Exception as e:
-    print("Exception when calling SessionApi->generate_session2_fa: %s\n" % e)
+    print("Exception when calling SessionApi->session_2fa: %s\n" % e)
 ```
 
 ### Parameters
@@ -153,9 +156,6 @@ Name | Type | Description  | Notes
 
 object
 
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -173,9 +173,9 @@ object
 **503** | Trade API service is unavailable |  -  |
 **504** | Gateway timeout, trade API is unreachable |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
-# **session_logout**
+# **logout**
 > object logout()
 
 Invalidate Session Token
@@ -184,13 +184,14 @@ API to invalidate final session for user.
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
 
 from ks_api_client import ks_api
 
-client = ks_api.KSTradeApi(access_token="access_token", userid="userid", \
-                consumer_key="consumer_key", app_id="app_id", ip="IP")
+client = ks_api.KSTradeApi(access_token = "access_token", userid = "userid", \
+                 consumer_key = "consumer_key", ip = "IP", app_id = "app_id", host = "host",\
+                 proxy_url = "proxy_url", proxy_user = "proxy_user", proxy_pass = "proxy_pass")
 
 #First initialize session and generate session token
 
@@ -198,7 +199,7 @@ try:
     # Invalidate Session Tsoken
     client.logout()
 except Exception as e:
-    print("Exception when calling SessionApi->session_logout: %s\n" % e)
+    print("Exception when calling SessionApi->logout: %s\n" % e)
 ```
 
 
@@ -206,13 +207,9 @@ except Exception as e:
 
 object
 
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details
@@ -225,4 +222,4 @@ object
 **503** | Trade API service is unavailable |  -  |
 **504** | Gateway timeout, trade API is unreachable |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

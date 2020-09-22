@@ -53,7 +53,7 @@ class KSTradeApi():
         self.one_time_token  =  login_response['oneTimeToken']
         return login_response_res
 		
-    def generate_session2_fa(self, access_code):
+    def session_2fa(self, access_code):
         user_details  =  UserDetails(userid = self.userid, accessCode = access_code)
         if self.one_time_token:
             generate_session_res  =  ks_api_client.SessionApi(self.api_client).generate_session2_fa(self.one_time_token, \
@@ -77,123 +77,85 @@ class KSTradeApi():
 # Common methods for placing order
 
     def place_order(self, order_type, instrument_token, transaction_type,  \
-                                quantity, price,  tag = "string", validity ="GFD", variety = "REGULAR",\
-                                disclosed_quantity = 0,trigger_price = 0 , product = None, smart_order_routing = None):
+                                quantity, price, disclosed_quantity = 0,trigger_price = 0 , tag = "string", \
+								validity ="GFD", variety = "REGULAR", product = None, smart_order_routing = None):
         """
         Method executes placing_orders according to it's order type.
         return response.
         """
         place_order  =  None
         if not 'session_token'  in self.__dict__:
-            raise ApiValueError("Please invoke 'generate_session2_fa' function first")
+            raise ApiValueError("Please invoke 'session_2fa' function first")
         if order_type == "O":
             order  =  NewOrder(instrumentToken  =  instrument_token, tag = tag, transactionType = transaction_type,\
                                     variety = variety, quantity = quantity, price = price, disclosedQuantity = disclosed_quantity,\
                                     validity = validity, triggerPrice = trigger_price, product = product,smartOrderRouting = smart_order_routing)
             place_order  =  ks_api_client.OrderApi(self.api_client).place_new_order(self.consumer_key,
                             self.session_token, order)
-        elif order_type  ==  'NO':
+        elif order_type  ==  'N':
             order  =  NewNormalOrder(instrumentToken = instrument_token, tag = tag, transactionType = transaction_type,\
                         variety = variety, quantity = quantity, price = price, disclosedQuantity = disclosed_quantity,\
                         validity = validity, triggerPrice = trigger_price)
             place_order  =  ks_api_client.NormalOrderApi(self.api_client).place_new_normal_order(self.consumer_key,
                             self.session_token, order)
-        elif order_type  ==  'SMO':
+        elif order_type  ==  'SM':
             order  =  NewSMOrder( instrumentToken = instrument_token, tag = tag, transactionType = transaction_type,\
                     variety = variety, quantity = quantity, price = price, disclosedQuantity = disclosed_quantity, \
                     validity = validity, triggerPrice = trigger_price)
             place_order  =  ks_api_client.SuperMultipleOrderApi(self.api_client).place_new_sm_order(self.consumer_key,\
                             self.session_token, order)
-        elif order_type  ==  'SORO':
+        elif order_type  ==  'SOR':
             order  =  NewSOROrder( instrumentToken = instrument_token, tag = tag, transactionType = transaction_type,\
                     variety = variety, quantity = quantity, price = price, validity = validity, disclosedQuantity = disclosed_quantity,triggerPrice = trigger_price )
             place_order  =  ks_api_client.SmartOrderRoutingApi(self.api_client).place_new_sor_order(self.consumer_key,\
                             self.session_token, order)
-        elif order_type  ==  'MTFO':
+        elif order_type  ==  'MTF':
             order  =  NewMTFOrder(instrumentToken = instrument_token, tag = tag, transactionType = transaction_type,\
                 variety = variety, quantity = quantity, price = price, disclosedQuantity = disclosed_quantity, \
                 validity = validity, triggerPrice = trigger_price)
             place_order  =  ks_api_client.MarginTradingApi(self.api_client).place_new_mtf_order(self.consumer_key, \
                             self.session_token, order)
         else:
-            raise TypeError("Provided order type is invalid, use either of O(Order), NO(Normal Order), SMO(Super Multiple Order), SORO(Smart Order Routing) or MTFO(Margin Tading Facility)")
+            raise TypeError("Provided order type is invalid, use either of O(Order), N(Normal Order), SM(Super Multiple Order), SOR(Smart Order Routing) or MTF(Margin Tading Facility)")
 
         return place_order
 
 # Common methods for modifiying order
 
 		
-    def modify_order(self, order_id, price , quantity , disclosed_quantity = 0, trigger_price = 0,order_type = None):
+    def modify_order(self, order_id, price , quantity , disclosed_quantity , trigger_price =0 ):
         """
-        Method executes modifying_orders according to it's order type.
+        Method executes modifying_orders
         return response.
         """				
         if not 'session_token' in self.__dict__:
-            raise ApiValueError("Please invoke 'generate_session2_fa' function first")
-        if order_type is None or order_type  ==  'O':
-            modify_order = ExistingOrder(orderId = order_id, disclosedQuantity = disclosed_quantity, price = price,\
+            raise ApiValueError("Please invoke 'session_2fa' function first")
+        
+        modify_order = ExistingOrder(orderId = order_id, disclosedQuantity = disclosed_quantity, price = price,\
                   quantity = quantity, triggerPrice = trigger_price)
-            modified_order_res  =  ks_api_client.OrderApi(self.api_client).modify_order(self.consumer_key,
+        modified_order_res  =  ks_api_client.OrderApi(self.api_client).modify_order(self.consumer_key,
                             self.session_token, modify_order)
-        elif order_type  ==  'NO':
-            modify_order = ExistingNormalOrder(orderId = order_id, disclosedQuantity = disclosed_quantity, price = price,\
-                  quantity = quantity, triggerPrice = trigger_price)
-            modified_order_res  =  ks_api_client.NormalOrderApi(self.api_client).modify_normal_order(self.consumer_key,
-                            self.session_token, modify_order)
-        elif order_type  ==  'SMO':
-            modify_order = ExistingSMOrder(orderId = order_id, disclosedQuantity = disclosed_quantity, price = price,\
-                  quantity = quantity, triggerPrice = trigger_price)
-            modified_order_res  =  ks_api_client.SuperMultipleOrderApi(self.api_client).modify_sm_order(self.consumer_key,
-                            self.session_token, modify_order)
-        elif order_type  ==  'SORO':
-            modify_order = ExistingSOROrder(orderId = order_id, disclosedQuantity = disclosed_quantity, price = price,\
-                  quantity = quantity, triggerPrice = trigger_price)
-            modified_order_res  =  ks_api_client.SmartOrderRoutingApi(self.api_client).modify_sor_order(self.consumer_key,\
-                            self.session_token, modify_order)
-        elif order_type  ==  'MTFO':
-            modify_order = ExistingMTFOrder(orderId = order_id, disclosedQuantity = disclosed_quantity, price = price,\
-                  quantity = quantity, triggerPrice = trigger_price)
-            modified_order_res  =  ks_api_client.MarginTradingApi(self.api_client).modify_mtf_order(self.consumer_key, \
-                            self.session_token, modify_order)
-        else:
-            raise TypeError("Provided order type is invalid, use either of O(Order), NO(Normal Order), SMO(Super Multiple Order), SORO(Smart Order Routing) or MTFO(Margin Tading Facility)")
-
         return modified_order_res
 
 # Common methods for cancelling order		
 		
-    def cancel_order(self, order_id, order_type = None):
+    def cancel_order(self, order_id):
         """
-        Method executes cancelling_order according to it's order type.
+        Method executes cancelling_order 
         return response.
         """
         order  =  False
 
         if not 'session_token' in self.__dict__:
-            raise ApiValueError("Please invoke 'generate_session2_fa' function first")
-        if order_type is None or order_type == 'O':
-            order  =  ks_api_client.OrderApi(self.api_client).cancel_order(self.consumer_key,
+            raise ApiValueError("Please invoke 'session_2fa' function first")
+            
+        order  =  ks_api_client.OrderApi(self.api_client).cancel_order(self.consumer_key,
                             self.session_token, order_id)
-        elif order_type == 'NO':
-            order  =  ks_api_client.NormalOrderApi(self.api_client).cancel_normal_order(self.consumer_key,
-                            self.session_token, order_id)
-        elif order_type == 'SMO':
-            order  =  ks_api_client.SuperMultipleOrderApi(self.api_client).cancel_sm_order(self.consumer_key,
-                            self.session_token, order_id)
-        elif order_type == 'SORO':
-            order  =  ks_api_client.SmartOrderRoutingApi(self.api_client).cancel_sor_order(self.consumer_key,\
-                            self.session_token, order)
-        elif order_type == 'MTFO':
-            order  =  ks_api_client.MarginTradingApi(self.api_client).cancel_mtf_order(self.consumer_key, \
-                            self.session_token, order)
-        else:
-            raise TypeError("Provided order type is invalid, use either of O(Order), NO(Normal Order), SMO(Super Multiple Order), SORO(Smart Order Routing) or MTFO(Margin Tading Facility)")
-
         return order
 
 #-------------------POSITIONS---------------------
 
-    def get_positions(self, position_type):
+    def positions(self, position_type):
         if position_type  ==  'TODAYS':
             positions_res  =  ks_api_client.PositionsApi(self.api_client).positions_today(self.consumer_key,self.session_token)
         elif position_type  ==  'OPEN':
@@ -206,7 +168,7 @@ class KSTradeApi():
 
 #---------------------ORDERS REPORTS----------------------------
 
-    def get_order_report(self, order_id  = None):
+    def order_report(self, order_id  = None):
         if order_id is None:
             order_report  =  ks_api_client.ReportsApi(self.api_client).get_order_reports(self.consumer_key, \
                     self.session_token)
@@ -217,7 +179,7 @@ class KSTradeApi():
 
 #--------------------------TRADES REPORTS---------------------------------
 
-    def get_trade_report(self, order_id  = None):
+    def trade_report(self, order_id  = None):
         if order_id is None:
             trade_report  =  ks_api_client.ReportsApi(self.api_client).get_trade_report(consumerKey = self.consumer_key,
                 sessionToken = self.session_token)
@@ -238,7 +200,7 @@ class KSTradeApi():
 		
 #-----------------------Quote Api------------------------	
 
-    def get_quote(self, instrument_token, quote_type = None):
+    def quote(self, instrument_token, quote_type = None):
         if quote_type is None:
             quote  =  ks_api_client.QuoteApi(self.api_client).get_instruments_details(self.consumer_key, \
                 self.session_token, instrument_token)
