@@ -82,8 +82,7 @@ else returns the trade report for a client of provided order_id.
 from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token = "access_token", userid = "userid", \
-                 consumer_key = "consumer_key", ip = "IP", app_id = "app_id", host = "host",\
-                 proxy_url = "proxy_url", proxy_user = "proxy_user", proxy_pass = "proxy_pass")
+                 consumer_key = "consumer_key", ip = "IP", app_id = "app_id")
 				
 #First initialize session and generate session token
 
