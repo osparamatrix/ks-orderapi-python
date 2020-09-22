@@ -25,8 +25,7 @@ from ks_api_client import ks_api
 
 #the session initializes when following constructor is called
 client = ks_api.KSTradeApi(access_token = "access_token", userid = "userid", \
-                 consumer_key = "consumer_key", ip = "IP", app_id = "app_id", host = "host",\
-                 proxy_url = "proxy_url", proxy_user = "proxy_user", proxy_pass = "proxy_pass")
+                         consumer_key = "consumer_key", ip = "IP", app_id = "app_id")
 ```
 
 ### Parameters
@@ -78,8 +77,7 @@ Authenticate userid and password to generate one time token.
 from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token = "access_token", userid = "userid", \
-                 consumer_key = "consumer_key", ip = "IP", app_id = "app_id", host = "host",\
-                 proxy_url = "proxy_url", proxy_user = "proxy_user", proxy_pass = "proxy_pass")
+                         consumer_key = "consumer_key", ip = "IP", app_id = "app_id")
 
 try:
     # Login using password
@@ -133,8 +131,7 @@ API to generate final session for user based on one time token.
 from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token = "access_token", userid = "userid", \
-                 consumer_key = "consumer_key", ip = "IP", app_id = "app_id", host = "host",\
-                 proxy_url = "proxy_url", proxy_user = "proxy_user", proxy_pass = "proxy_pass")
+                         consumer_key = "consumer_key", ip = "IP", app_id = "app_id")
 				
 try:
     # Login using password
@@ -190,8 +187,7 @@ API to invalidate final session for user.
 from ks_api_client import ks_api
 
 client = ks_api.KSTradeApi(access_token = "access_token", userid = "userid", \
-                 consumer_key = "consumer_key", ip = "IP", app_id = "app_id", host = "host",\
-                 proxy_url = "proxy_url", proxy_user = "proxy_user", proxy_pass = "proxy_pass")
+                         consumer_key = "consumer_key", ip = "IP", app_id = "app_id")
 
 #First initialize session and generate session token
 
