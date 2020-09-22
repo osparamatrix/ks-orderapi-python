@@ -27,32 +27,10 @@ client = ks_api.KSTradeApi(access_token = "access_token", userid = "userid", \
 
 try:
     # Place a Order
-    client.place_order(order_type = "O", instrument_token = 727,  \
-                   transaction_type = "BUY", quantity = 1, price = 0,\
-                   disclosed_quantity = 0, trigger_price = 0, tag = "string",\
-                   validity = "GFD", variety = "REGULAR", product = "NORMAL", \
-                   smart_order_routing = "string")
-    # Place a Normal Order
     client.place_order(order_type = "N", instrument_token = 727,  \
                    transaction_type = "BUY", quantity = 1, price = 0,\
                    disclosed_quantity = 0, trigger_price = 0, tag = "string",\
                    validity = "GFD", variety = "REGULAR")
-    # Place a Super Multiple Order
-    client.place_order(order_type = "SM", instrument_token = 727,  \
-                   transaction_type = "BUY", quantity = 3, price = 0,\
-                   disclosed_quantity = 0, trigger_price = 0, tag = "string",\
-                   validity = "GFD", variety = "REGULAR")
-    # Place a Smart Order Routing Order
-    client.place_order(order_type = "SOR", instrument_token = 727,  \
-                   transaction_type = "BUY", quantity = 1, price = 0,\
-                   disclosed_quantity = 0, trigger_price = 0, tag = "string",\
-                   validity = "GFD", variety = "REGULAR")
-    # Place a Margin Tading Facility Order
-    client.place_order(order_type = "MTF", instrument_token = 727,  \
-                   transaction_type = "BUY", quantity = 1, price = 0,\
-                   disclosed_quantity = 0, trigger_price = 0, tag = "string",\
-                   validity = "GFD", variety = "REGULAR")
-			
 except Exception as e:
     print("Exception when calling OrderApi->place_order: %s\n" % e)
 ``` 
