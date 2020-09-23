@@ -123,7 +123,7 @@ class KSTradeApi():
 # Common methods for modifiying order
 
 		
-    def modify_order(self, order_id, price , quantity , disclosed_quantity , trigger_price =0 ):
+    def modify_order(self, order_id, price , quantity , disclosed_quantity , trigger_price  ):
         """
         Method executes modifying_orders
         return response.
