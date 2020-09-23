@@ -108,7 +108,7 @@ Name | Type | Description  | Notes
 **price** | **float** | Order Price, non zero positive for limit order and zero for market order | 
 **quantity** | **int** | Order quantity - specified in same unit as quoted in market depth |
 **disclosed_quantity** | **int** | Quantity to be disclosed in order | 
-**trigger_price** | **float** | Trigger price, required for stoploss or supermultiple order | [optional] 
+**trigger_price** | **float** | Trigger price, required for stoploss or supermultiple order |
 
 ### Return type
 
