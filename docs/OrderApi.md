@@ -28,8 +28,8 @@ try:
     # Place a Order
     client.place_order(order_type = "N", instrument_token = 727,  \
                    transaction_type = "BUY", quantity = 1, price = 0,\
-                   disclosed_quantity = 0, trigger_price = 0, tag = "string",\
-                   validity = "GFD", variety = "REGULAR")
+                   disclosed_quantity = 0, trigger_price = 0,\
+                   validity = "GFD", variety = "REGULAR", tag = "string")
 except Exception as e:
     print("Exception when calling OrderApi->place_order: %s\n" % e)
 ``` 
@@ -45,9 +45,9 @@ Name | Type | Description  | Notes
 **price** | **float** | Order Price, non zero positive for limit order and zero for market order |
 **disclosed_quantity** | **int** | Quantity to be disclosed in order | [optional] 
 **trigger_price** | **float** | Trigger price, required for stoploss or supermultiple order | [optional] 
-**tag** | **str** | Tag for this order | [optional] 
 **validity** | **str** | Validity of the order - GFD, IOC etc | [optional] 
 **variety** | **str** | Variety of the order - REGULAR, AMO, SQUAREOFF - for Super Multiple Orders etc | [optional] 
+**tag** | **str** | Tag for this order | [optional] 
 **product** | **str** | Product type for this order - NORMAL, SUPERMULTIPLE, SUPERMULTIPLEOPTION, MTF | [optional]
 **smart_order_routing** | **str** | smart Order Routing for this order | [optional]
 
@@ -93,7 +93,7 @@ client = ks_api.KSTradeApi(access_token = "access_token", userid = "userid", \
 
 try:
     # Modify an existing order
-    client.modify_order(order_id = "2200922000576", price = 0, quantity = 1, \
+    client.modify_order(order_id = "2200922000576", quantity = 1, price = 0, \
                  disclosed_quantity = 0, trigger_price = 0)
 								  
 except Exception as e:
@@ -105,8 +105,8 @@ except Exception as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **order_id** | **str** | Order ID of the order to be modified | 
-**price** | **float** | Order Price, non zero positive for limit order and zero for market order | 
 **quantity** | **int** | Order quantity - specified in same unit as quoted in market depth |
+**price** | **float** | Order Price, non zero positive for limit order and zero for market order | 
 **disclosed_quantity** | **int** | Quantity to be disclosed in order | 
 **trigger_price** | **float** | Trigger price, required for stoploss or supermultiple order |
 
