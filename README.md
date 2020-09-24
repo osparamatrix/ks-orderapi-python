@@ -56,11 +56,11 @@ client.session_2fa(access_code = "")
 
 # Place an order
 client.place_order(order_type = "N", instrument_token = 727, transaction_type = "BUY",\
-                        quantity = 1, price = 0, disclosed_quantity = 0, trigger_price = 0,\
-						tag = "string", validity = "GFD", variety = "REGULAR")
+                       quantity = 1, price = 0, disclosed_quantity = 0, trigger_price = 0,\
+                            validity = "GFD", variety = "REGULAR", tag = "string")
 						
 # Modify an order
-client.modify_order(order_id = "", price = 0, quantity=1, disclosed_quantity = 0, trigger_price=0)
+client.modify_order(order_id = "", quantity = 1, price = 0, disclosed_quantity = 0, trigger_price = 0)
 
 # Cancel an order
 client.cancel_order(order_id = "")
