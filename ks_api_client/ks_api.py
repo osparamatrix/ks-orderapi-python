@@ -77,8 +77,9 @@ class KSTradeApi():
 # Common methods for placing order
 
     def place_order(self, order_type, instrument_token, transaction_type,  \
-                                quantity, price, disclosed_quantity = 0,trigger_price = 0 , tag = "string", \
-								validity ="GFD", variety = "REGULAR", product = None, smart_order_routing = None):
+                                quantity, price, disclosed_quantity = 0,trigger_price = 0 , \
+                                validity ="GFD", variety = "REGULAR", tag = "string",  product = None, \
+                                smart_order_routing = None):
         """
         Method executes placing_orders according to it's order type.
         return response.
@@ -123,7 +124,7 @@ class KSTradeApi():
 # Common methods for modifiying order
 
 		
-    def modify_order(self, order_id, price , quantity , disclosed_quantity , trigger_price  ):
+    def modify_order(self, order_id, quantity, price, disclosed_quantity, trigger_price):
         """
         Method executes modifying_orders
         return response.
