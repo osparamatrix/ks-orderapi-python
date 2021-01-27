@@ -8,7 +8,7 @@ from ks_api_client.models import NewMTFOrder, NewNormalOrder, NewOrder, \
 from urllib3 import make_headers
 
 class KSTradeApi():
-    def __init__(self, access_token, userid, consumer_key, ip, app_id, host = "https://sbx.kotaksecurities.com/apim", proxy_url = '',\
+    def __init__(self, access_token, userid, consumer_key, ip, app_id, host = "https://tradeapi.kotaksecurities.com/apim", proxy_url = '',\
                 proxy_user = '', proxy_pass = ''):
         self.host  =  host
         self.userid  =  userid
