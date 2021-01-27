@@ -3,6 +3,7 @@ from __future__ import absolute_import
 # flake8: noqa
 
 # import apis into api package
+from ks_api_client.api.historical_api import HistoricalApi
 from ks_api_client.api.margin_api import MarginApi
 from ks_api_client.api.margin_trading_api import MarginTradingApi
 from ks_api_client.api.normal_order_api import NormalOrderApi

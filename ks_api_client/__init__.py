@@ -7,6 +7,7 @@ from __future__ import absolute_import
 __version__ = "1.0.0"
 
 # import apis into sdk package
+from ks_api_client.api.historical_api import HistoricalApi
 from ks_api_client.api.margin_api import MarginApi
 from ks_api_client.api.margin_trading_api import MarginTradingApi
 from ks_api_client.api.normal_order_api import NormalOrderApi

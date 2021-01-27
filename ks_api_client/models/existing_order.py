@@ -25,6 +25,7 @@ class ExistingOrder(object):
         'price': 'float',
         'disclosedQuantity': 'int',
         'triggerPrice': 'float',
+        'validity': 'str',
         'tslo': 'Tslomodify',
         'bracket': 'Bracketmodify',
         'tslonew': 'Tslomodify',
@@ -40,6 +41,7 @@ class ExistingOrder(object):
         'price': 'price',
         'disclosedQuantity': 'disclosedQuantity',
         'triggerPrice': 'triggerPrice',
+        'validity': 'validity',
         'tslo': 'tslo',
         'bracket': 'bracket',
         'tslonew': 'tslonew',
@@ -49,7 +51,7 @@ class ExistingOrder(object):
         'cod': 'cod'
     }
 
-    def __init__(self, orderId=None, quantity=None, price=None, disclosedQuantity=None, triggerPrice=None, tslo=None, bracket=None, tslonew=None, bracketnew=None, gtc=None, ctd=None, cod=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, orderId=None, quantity=None, price=None, disclosedQuantity=None, triggerPrice=None, validity=None, tslo=None, bracket=None, tslonew=None, bracketnew=None, gtc=None, ctd=None, cod=None, local_vars_configuration=None):  # noqa: E501
         """ExistingOrder - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
@@ -60,6 +62,7 @@ class ExistingOrder(object):
         self._price = None
         self._disclosedQuantity = None
         self._triggerPrice = None
+        self._validity = None
         self._tslo = None
         self._bracket = None
         self._tslonew = None
@@ -78,6 +81,7 @@ class ExistingOrder(object):
             self.disclosedQuantity = disclosedQuantity
         if triggerPrice is not None:
             self.triggerPrice = triggerPrice
+        self.validity = validity
         if tslo is not None:
             self.tslo = tslo
         if bracket is not None:
@@ -209,6 +213,37 @@ class ExistingOrder(object):
         """
 
         self._triggerPrice = triggerPrice
+
+    @property
+    def validity(self):
+        """Gets the validity of this ExistingOrder.  # noqa: E501
+
+        Validity of the order - GFD, IOC etc  # noqa: E501
+
+        :return: The validity of this ExistingOrder.  # noqa: E501
+        :rtype: str
+        """
+        return self._validity
+
+    @validity.setter
+    def validity(self, validity):
+        """Sets the validity of this ExistingOrder.
+
+        Validity of the order - GFD, IOC etc  # noqa: E501
+
+        :param validity: The validity of this ExistingOrder.  # noqa: E501
+        :type validity: str
+        """
+        if self.local_vars_configuration.client_side_validation and validity is None:  # noqa: E501
+            raise ValueError("Invalid value for `validity`, must not be `None`")  # noqa: E501
+        allowed_values = ["GFD"]  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and validity not in allowed_values:  # noqa: E501
+            raise ValueError(
+                "Invalid value for `validity` ({0}), must be one of {1}"  # noqa: E501
+                .format(validity, allowed_values)
+            )
+
+        self._validity = validity
 
     @property
     def tslo(self):

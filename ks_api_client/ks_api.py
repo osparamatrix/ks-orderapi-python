@@ -1,4 +1,7 @@
 import ks_api_client
+import base64
+import json
+
 from ks_api_client.exceptions import ApiException, ApiValueError
 from ks_api_client.models import NewMTFOrder, NewNormalOrder, NewOrder, \
                 NewSMOrder, NewSOROrder, ExistingMTFOrder, ExistingNormalOrder, \
@@ -77,9 +80,8 @@ class KSTradeApi():
 # Common methods for placing order
 
     def place_order(self, order_type, instrument_token, transaction_type,  \
-                                quantity, price, disclosed_quantity = 0,trigger_price = 0 , \
-                                validity ="GFD", variety = "REGULAR", tag = "string",  product = None, \
-                                smart_order_routing = None):
+                                quantity, price, disclosed_quantity = 0,trigger_price = 0 , tag = "string", \
+								validity ="GFD", variety = "REGULAR", product = None, smart_order_routing = None):
         """
         Method executes placing_orders according to it's order type.
         return response.
@@ -124,7 +126,7 @@ class KSTradeApi():
 # Common methods for modifiying order
 
 		
-    def modify_order(self, order_id, quantity, price, disclosed_quantity, trigger_price):
+    def modify_order(self, order_id, price , quantity , disclosed_quantity , trigger_price ,validity):
         """
         Method executes modifying_orders
         return response.
@@ -133,7 +135,7 @@ class KSTradeApi():
             raise ApiValueError("Please invoke 'session_2fa' function first")
         
         modify_order = ExistingOrder(orderId = order_id, disclosedQuantity = disclosed_quantity, price = price,\
-                  quantity = quantity, triggerPrice = trigger_price)
+                  quantity = quantity, triggerPrice = trigger_price,validity = validity)
         modified_order_res  =  ks_api_client.OrderApi(self.api_client).modify_order(self.consumer_key,
                             self.session_token, modify_order)
         return modified_order_res
@@ -236,6 +238,13 @@ class KSTradeApi():
                 order = order.get("BSE")
         return str(order['orderId'])
 
+#-------------------Historical---------------------
+    def get_historical_data(self, resource, json_input):
+        if not 'session_token' in self.__dict__:
+            raise ApiValueError("Please invoke 'session_2fa' function first")
+        encoded_json = base64.urlsafe_b64encode(json.dumps(json_input).encode()).decode()
+        data = ks_api_client.HistoricalApi(self.api_client).get_resource(resource,encoded_json)
+        return data					 
 #-------- Convert Array and object snake_case keys to camelCase -----------
     def convertObject(self, object):  
         newObj={}
