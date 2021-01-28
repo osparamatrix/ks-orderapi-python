@@ -6,7 +6,7 @@ from ks_api_client.exceptions import ApiException, ApiValueError
 from ks_api_client.models import NewMTFOrder, NewNormalOrder, NewOrder, \
                 NewSMOrder, NewSOROrder, ExistingMTFOrder, ExistingNormalOrder, \
                 ExistingOrder, ExistingSMOrder, ExistingSOROrder, ReqMargin, \
-                UserCredentials, UserDetails
+                UserCredentials, UserDetails, NewMISOrder
 
 from urllib3 import make_headers
 
@@ -118,8 +118,14 @@ class KSTradeApi():
                 validity = validity, triggerPrice = trigger_price)
             place_order  =  ks_api_client.MarginTradingApi(self.api_client).place_new_mtf_order(self.consumer_key, \
                             self.session_token, order)
+        elif order_type  ==  'MIS':
+            order  =  NewMISOrder(instrumentToken = instrument_token, tag = tag, transactionType = transaction_type,\
+                        variety = variety, quantity = quantity, price = price, disclosedQuantity = disclosed_quantity,\
+                        validity = validity, triggerPrice = trigger_price)
+            place_order  =  ks_api_client.MISOrderApi(self.api_client).place_new_mis_order(self.consumer_key,
+                            self.session_token, order)
         else:
-            raise TypeError("Provided order type is invalid, use either of O(Order), N(Normal Order), SM(Super Multiple Order), SOR(Smart Order Routing) or MTF(Margin Tading Facility)")
+            raise TypeError("Provided order type is invalid, use either of O(Order), N(Normal Order), SM(Super Multiple Order), SOR(Smart Order Routing), MTF(Margin Tading Facility) or MIS")
 
         return place_order
 
@@ -242,6 +248,18 @@ class KSTradeApi():
     def get_historical_data(self, resource, json_input):
         if not 'session_token' in self.__dict__:
             raise ApiValueError("Please invoke 'session_2fa' function first")
+        if(resource == 'historicalprices'):
+            if (not(json_input.keys() >= {"exchange","cocode","fromdate","todate"})):
+                raise ApiValueError("exchange,cocode,fromdate,todate fields are required.")
+        elif(resource == 'historicalprices-unadjusted'):
+            if (not(json_input.keys() >= {"exchange","co_code","date"})):
+                raise ApiValueError("exchange,co_code,date fields are required.")
+        elif(resource == 'NSEFNO_HistoricalContinuousChart'):
+            if (not(json_input.keys() >= {"symbol","expiry type"})):
+                raise ApiValueError("symbol,expiry type fields are required.")
+        elif(resource == 'LiveorEODHistorical'):
+            if (not(json_input.keys() >= {"exchange","co_code","period","cnt"})):
+                raise ApiValueError("exchange,co_code,period,cnt fields are required.")    
         encoded_json = base64.urlsafe_b64encode(json.dumps(json_input).encode()).decode()
         data = ks_api_client.HistoricalApi(self.api_client).get_resource(resource,encoded_json)
         return data					 

@@ -8,6 +8,7 @@ __version__ = "1.0.0"
 
 # import apis into sdk package
 from ks_api_client.api.historical_api import HistoricalApi
+from ks_api_client.api.mis_order_api import MISOrderApi
 from ks_api_client.api.margin_api import MarginApi
 from ks_api_client.api.margin_trading_api import MarginTradingApi
 from ks_api_client.api.normal_order_api import NormalOrderApi
@@ -35,6 +36,7 @@ from ks_api_client.models.codmodify import Codmodify
 from ks_api_client.models.codplace import Codplace
 from ks_api_client.models.ctdmodify import Ctdmodify
 from ks_api_client.models.ctdplace import Ctdplace
+from ks_api_client.models.existing_mis_order import ExistingMISOrder
 from ks_api_client.models.existing_mtf_order import ExistingMTFOrder
 from ks_api_client.models.existing_normal_order import ExistingNormalOrder
 from ks_api_client.models.existing_order import ExistingOrder
@@ -43,6 +45,7 @@ from ks_api_client.models.existing_sor_order import ExistingSOROrder
 from ks_api_client.models.fault import Fault
 from ks_api_client.models.gtcmodify import Gtcmodify
 from ks_api_client.models.gtcplace import Gtcplace
+from ks_api_client.models.new_mis_order import NewMISOrder
 from ks_api_client.models.new_mtf_order import NewMTFOrder
 from ks_api_client.models.new_normal_order import NewNormalOrder
 from ks_api_client.models.new_order import NewOrder

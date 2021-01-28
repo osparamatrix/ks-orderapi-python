@@ -242,7 +242,7 @@ class NewOrder(object):
         :param product: The product of this NewOrder.  # noqa: E501
         :type product: str
         """
-        allowed_values = ["NORMAL", "SUPERMULTIPLE", "SUPERMULTIPLEOPTION", "MTF", "SOR", "TSLONEW", "BRACKETNEW", "TSLO", "BRACKET", "GTC", "COD", "CONVERT", "MIS"]  # noqa: E501
+        allowed_values = ["NORMAL", "SUPERMULTIPLE", "SUPERMULTIPLEOPTION", "MTF", "SOR", "TSLONEW", "BRACKETNEW", "TSLO", "BRACKET", "GTC", "COD", "CONVERT"]  # noqa: E501
         if self.local_vars_configuration.client_side_validation and product not in allowed_values:  # noqa: E501
             raise ValueError(
                 "Invalid value for `product` ({0}), must be one of {1}"  # noqa: E501
