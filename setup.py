@@ -3,7 +3,7 @@
 from setuptools import setup, find_packages  # noqa: H301
 
 NAME = "ks-api-client"
-VERSION = "1.0.20"
+VERSION = "1.0.21"
 # To install the library, run the following
 #
 # python setup.py install
