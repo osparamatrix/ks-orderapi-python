@@ -2,76 +2,49 @@
 
 All URIs are relative to *https://tradeapi.kotaksecurities.com/apim*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**get_resource**](HistoricalApi.md#get_resource) | **GET** /trade/1.0.0/equity/{resource}/i/{input} | Get historical data
+Method | Description
+------------- | -------------
+[**history**](HistoricalApi.md#history) | Get historical data
 
 
 # **get_resource**
-> object get_resource(resource, input)
+> object history(resource, input)
 
-Get historical data
+Get historical data based on given resource
 
 Get Historical data
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
 ```python
-from __future__ import print_function
-import time
-import ks_api_client
-from ks_api_client.rest import ApiException
-from pprint import pprint
-# Defining the host is optional and defaults to https://tradeapi.kotaksecurities.com/apim
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ks_api_client.Configuration(
-    host = "https://tradeapi.kotaksecurities.com/apim"
-)
+from ks_api_client import ks_api
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
+client = ks_api.KSTradeApi(access_token = "access_token", userid = "userid", \
+                 consumer_key = "consumer_key", ip = "IP", app_id = "app_id")
 
-# Configure Bearer authorization (JWT): bearerAuth
-configuration = ks_api_client.Configuration(
-    access_token = 'YOUR_BEARER_TOKEN'
-)
+#First initialize session and generate session token
 
-# Enter a context with an instance of the API client
-with ks_api_client.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = ks_api_client.HistoricalApi(api_client)
-    resource = 'resource_example' # str | 
-input = 'input_example' # str | 
-
-    try:
-        # Get historical data
-        api_response = api_instance.get_resource(resource, input)
-        pprint(api_response)
-    except ApiException as e:
-        print("Exception when calling HistoricalApi->get_resource: %s\n" % e)
+try:
+    # Get historical prices
+    client.history("historicalprices",{"exchange":"bse","cocode":"476","fromdate":"01-jan-2014","todate":"08-oct-2015"})
+except Exception as e:
+    print("Exception when calling Historical API->details: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resource** | **str**|  | 
- **input** | **str**|  | 
+ **resource** | **str**|  | Type of resource historicalprices,historicalprices-unadjusted,NSEFNO_HistoricalContinuousChart,LiveorEODHistorical
+ **input** | **str**|  | Json as per resource selected
 
 ### Return type
 
 **object**
 
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details
