@@ -1,6 +1,6 @@
 # ks_api_client.OrderApi
 
-All URIs are relative to *https://sbx.kotaksecurities.com/apim*
+All URIs are relative to *https://tradeapi.kotaksecurities.com/apim*
 
 Method | Description
 ------------- | -------------
