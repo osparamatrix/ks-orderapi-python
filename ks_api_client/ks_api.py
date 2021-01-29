@@ -250,16 +250,16 @@ class KSTradeApi():
             raise ApiValueError("Please invoke 'session_2fa' function first")
         if(resource == 'historicalprices'):
             if (not(json_input.keys() >= {"exchange","cocode","fromdate","todate"})):
-                raise ApiValueError("exchange,cocode,fromdate,todate fields are required.")
+#                raise ApiValueError("exchange,cocode,fromdate,todate fields are required.")
         elif(resource == 'historicalprices-unadjusted'):
             if (not(json_input.keys() >= {"exchange","co_code","date"})):
-                raise ApiValueError("exchange,co_code,date fields are required.")
+ #               raise ApiValueError("exchange,co_code,date fields are required.")
         elif(resource == 'NSEFNO_HistoricalContinuousChart'):
             if (not(json_input.keys() >= {"symbol","expiry type"})):
-                raise ApiValueError("symbol,expiry type fields are required.")
+  #              raise ApiValueError("symbol,expiry type fields are required.")
         elif(resource == 'LiveorEODHistorical'):
             if (not(json_input.keys() >= {"exchange","co_code","period","cnt"})):
-                raise ApiValueError("exchange,co_code,period,cnt fields are required.")    
+   #             raise ApiValueError("exchange,co_code,period,cnt fields are required.")    
         encoded_json = base64.urlsafe_b64encode(json.dumps(json_input).encode()).decode()
         data = ks_api_client.HistoricalApi(self.api_client).get_resource(resource,encoded_json)
         return data					 
