@@ -103,7 +103,7 @@ client.logout()
 ```
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://sbx.kotaksecurities.com/apim*
+All URIs are relative to *https://tradeapi.kotaksecurities.com/apim*
 
 Class | Method | Description
 ------------ | ------------- | -------------
@@ -118,7 +118,7 @@ Class | Method | Description
 *MarginApi* | [**margin_required**](docs/MarginApi.md#margin_required) | Get Margin Required for an order by amount or quantity.
 *PositionsApi* | [**positions**](docs/PositionsApi.md#positions) | Get&#39;s Open position.
 *QuoteApi* | [**quote**](docs/QuoteApi.md#quote_details) | Get Quote details
-*HistoricalApi* | [**get_resource**](docs/HistoricalApi.md#get_resource) | Get historical data.
+*HistoricalApi* | [**history**](docs/HistoricalApi.md#history) | Get historical data.
 *SessionApi* | [**logout**](docs/SessionApi.md#logout) | Invalidate Session Token
 
 
