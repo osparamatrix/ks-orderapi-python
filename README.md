@@ -47,6 +47,7 @@ from ks_api_client import ks_api
 # See configuration.py for a list of all supported configuration parameters.
 client = ks_api.KSTradeApi(access_token = "", userid = "", \
                 consumer_key = "", ip = "127.0.0.1", app_id = "")
+
 #For using sandbox environment use host as https://sbx.kotaksecurities.com/apim
 client = ks_api.KSTradeApi(access_token = "", userid = "", \
                 consumer_key = "", ip = "127.0.0.1", app_id = "", host = "https://sbx.kotaksecurities.com/apim")
@@ -117,6 +118,7 @@ Class | Method | Description
 *MarginApi* | [**margin_required**](docs/MarginApi.md#margin_required) | Get Margin Required for an order by amount or quantity.
 *PositionsApi* | [**positions**](docs/PositionsApi.md#positions) | Get&#39;s Open position.
 *QuoteApi* | [**quote**](docs/QuoteApi.md#quote_details) | Get Quote details
+*HistoricalApi* | [**get_resource**](docs/HistoricalApi.md#get_resource) | Get historical data.
 *SessionApi* | [**logout**](docs/SessionApi.md#logout) | Invalidate Session Token
 
 
