@@ -236,7 +236,7 @@ class ExistingOrder(object):
         """
         if self.local_vars_configuration.client_side_validation and validity is None:  # noqa: E501
             raise ValueError("Invalid value for `validity`, must not be `None`")  # noqa: E501
-        allowed_values = ["GFD"]  # noqa: E501
+        allowed_values = ["GFD", "IOC"]  # noqa: E501
         if self.local_vars_configuration.client_side_validation and validity not in allowed_values:  # noqa: E501
             raise ValueError(
                 "Invalid value for `validity` ({0}), must be one of {1}"  # noqa: E501

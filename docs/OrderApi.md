@@ -38,7 +38,7 @@ except Exception as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**order_type** | **str**| Type of the order - O(Order), N(NormalOrder), SM(Super Multiple Order), SOR(Smart Order Routing Order), MTF(Margin Trading Facility Order)|
+**order_type** | **str**| Type of the order - O(Order), N(NormalOrder), SM(Super Multiple Order), SOR(Smart Order Routing Order), MTF(Margin Trading Facility Order), MIS(Margin Intraday Sqaure-Off)|
 **instrument_token** | **int** | Instrument token of the scrip to be traded |
 **transaction_type** | **str** | Transaction Type - BUY or SELL |
 **quantity** | **int** | Order quantity - specified in same unit as quoted in market depth |
@@ -94,7 +94,7 @@ client = ks_api.KSTradeApi(access_token = "access_token", userid = "userid", \
 try:
     # Modify an existing order
     client.modify_order(order_id = "2200922000576", quantity = 1, price = 0, \
-                 disclosed_quantity = 0, trigger_price = 0)
+                 disclosed_quantity = 0, trigger_price = 0, validity = "GFD")
 								  
 except Exception as e:
     print("Exception when calling OrderApi->modify_order: %s\n" % e)
@@ -109,6 +109,7 @@ Name | Type | Description  | Notes
 **price** | **float** | Order Price, non zero positive for limit order and zero for market order | 
 **disclosed_quantity** | **int** | Quantity to be disclosed in order | 
 **trigger_price** | **float** | Trigger price, required for stoploss or supermultiple order |
+**validity** | **str** | Validity of the order - GFD, IOC etc | [optional]
 
 ### Return type
 

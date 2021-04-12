@@ -24,7 +24,8 @@ class ExistingSMOrder(object):
         'quantity': 'int',
         'price': 'float',
         'disclosedQuantity': 'int',
-        'triggerPrice': 'float'
+        'triggerPrice': 'float',
+        'validity': 'str'
     }
 
     attribute_map = {
@@ -32,10 +33,11 @@ class ExistingSMOrder(object):
         'quantity': 'quantity',
         'price': 'price',
         'disclosedQuantity': 'disclosedQuantity',
-        'triggerPrice': 'triggerPrice'
+        'triggerPrice': 'triggerPrice',
+        'validity': 'validity'
     }
 
-    def __init__(self, orderId=None, quantity=None, price=None, disclosedQuantity=None, triggerPrice=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, orderId=None, quantity=None, price=None, disclosedQuantity=None, triggerPrice=None, validity=None, local_vars_configuration=None):  # noqa: E501
         """ExistingSMOrder - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
@@ -46,6 +48,7 @@ class ExistingSMOrder(object):
         self._price = None
         self._disclosedQuantity = None
         self._triggerPrice = None
+        self._validity = None
         self.discriminator = None
 
         self.orderId = orderId
@@ -57,6 +60,7 @@ class ExistingSMOrder(object):
             self.disclosedQuantity = disclosedQuantity
         if triggerPrice is not None:
             self.triggerPrice = triggerPrice
+        self.validity = validity
 
     @property
     def orderId(self):
@@ -174,6 +178,37 @@ class ExistingSMOrder(object):
         """
 
         self._triggerPrice = triggerPrice
+
+    @property
+    def validity(self):
+        """Gets the validity of this ExistingSMOrder.  # noqa: E501
+
+        Validity of the order - GFD, IOC etc  # noqa: E501
+
+        :return: The validity of this ExistingSMOrder.  # noqa: E501
+        :rtype: str
+        """
+        return self._validity
+
+    @validity.setter
+    def validity(self, validity):
+        """Sets the validity of this ExistingSMOrder.
+
+        Validity of the order - GFD, IOC etc  # noqa: E501
+
+        :param validity: The validity of this ExistingSMOrder.  # noqa: E501
+        :type validity: str
+        """
+        if self.local_vars_configuration.client_side_validation and validity is None:  # noqa: E501
+            raise ValueError("Invalid value for `validity`, must not be `None`")  # noqa: E501
+        allowed_values = ["GFD", "IOC"]  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and validity not in allowed_values:  # noqa: E501
+            raise ValueError(
+                "Invalid value for `validity` ({0}), must be one of {1}"  # noqa: E501
+                .format(validity, allowed_values)
+            )
+
+        self._validity = validity
 
     def to_dict(self):
         """Returns the model properties as a dict"""
