@@ -226,7 +226,7 @@ class NewMISOrder(object):
         :param variety: The variety of this NewMISOrder.  # noqa: E501
         :type variety: str
         """
-        allowed_values = ["REGULAR", "AMO"]  # noqa: E501
+        allowed_values = ["REGULAR", "AMO", "SQUAREOFF"]  # noqa: E501
         if self.local_vars_configuration.client_side_validation and variety not in allowed_values:  # noqa: E501
             raise ValueError(
                 "Invalid value for `variety` ({0}), must be one of {1}"  # noqa: E501
