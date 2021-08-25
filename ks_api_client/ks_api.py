@@ -12,13 +12,14 @@ from urllib3 import make_headers
 
 class KSTradeApi():
     def __init__(self, access_token, userid, consumer_key, ip, app_id, host = "https://tradeapi.kotaksecurities.com/apim", proxy_url = '',\
-                proxy_user = '', proxy_pass = ''):
+                proxy_user = '', proxy_pass = '',session_token = None):
         self.host  =  host
         self.userid  =  userid
         self.consumer_key  =  consumer_key
         self.ip  =  ip
         self.app_id  =  app_id
         self.access_token  =  access_token
+        self.session_token = session_token
         configuration  =  self.get_config(proxy_url, proxy_user, proxy_pass)
         self.api_client  =  ks_api_client.ApiClient(configuration)
         session_init_res  =  ks_api_client.SessionApi(self.api_client).session_init(self.userid, \
@@ -70,7 +71,8 @@ class KSTradeApi():
             return generate_session
         else:
             raise ApiValueError("Please invoke 'session_login_api' function first")
-
+    def set_session_token(self,session_token):
+        self.session_token = session_token
     def logout(self):
         logout  =  ks_api_client.SessionApi(self.api_client).session_logout(self.session_token,self.consumer_key,\
 						self.ip, self.app_id, self.userid)
