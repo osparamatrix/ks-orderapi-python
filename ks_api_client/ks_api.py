@@ -209,19 +209,21 @@ class KSTradeApi():
 		
 #-----------------------Quote Api------------------------	
 
-    def quote(self, instrument_token, quote_type = None):
+    def quote(self, instrument_tokens, quote_type = None):
+        if isinstance(instrument_tokens, (list, tuple)):
+            instrument_tokens = '-'.join([str(i) for i in instrument_tokens])
         if quote_type is None:
             quote  =  ks_api_client.QuoteApi(self.api_client).get_instruments_details(self.consumer_key, \
-                self.session_token, instrument_token)
+                self.session_token, instrument_tokens)
         elif quote_type  ==  'LTP':
              quote  =  ks_api_client.QuoteApi(self.api_client).get_ltp_quote(self.consumer_key, \
-                self.session_token, instrument_token)
+                self.session_token, instrument_tokens)
         elif quote_type  ==  'DEPTH':
             quote  =  ks_api_client.QuoteApi(self.api_client).get_market_details_quote(self.consumer_key, \
-                self.session_token, instrument_token)
+                self.session_token, instrument_tokens)
         elif quote_type  ==  'OHLC':
             quote  =  ks_api_client.QuoteApi(self.api_client).get_ohlc_quote(self.consumer_key, \
-                self.session_token, instrument_token)
+                self.session_token, instrument_tokens)
         else:
             raise TypeError("Provided quote type is invalid, use either of LTP, DEPTH or OHLC")
         return quote
